@@ -1,13 +1,12 @@
 import { config, fields, singleton, collection } from '@keystatic/core';
 
 export default config({
-  storage: {
-    // In development, files are written to disk in /content.
-    // For production on Cloudflare Pages, change kind to 'github' and
-    // configure KEYSTATIC_GITHUB_CLIENT_ID, KEYSTATIC_GITHUB_CLIENT_SECRET,
-    // and KEYSTATIC_SECRET environment variables in the Cloudflare dashboard.
-    kind: 'local',
-  },
+  storage: process.env.NODE_ENV === 'development'
+    ? { kind: 'local' }
+    : {
+        kind: 'github',
+        repo: 'brandmerce/flame-coop',
+      },
 
   // ── SINGLETONS ────────────────────────────────────────────────────────
 
