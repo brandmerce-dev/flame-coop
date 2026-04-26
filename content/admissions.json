@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Admissions | The Flame Christian Co-op",
+    "description": "Admissions at The Flame is more than paperwork. It's the beginning of a Spirit-led partnership between your family and a community committed to helping your child grow in faith, wisdom, and purpose.",
+    "ogTitle": "Admissions | The Flame Christian Co-op",
+    "ogDescription": "Begin the admissions journey at The Flame Christian Co-op in St. Augustine.",
+    "ogImage": null
+  },
+  "heroHeadline": "The Journey Into The Flame Starts Here.",
+  "heroLead": "Admissions at The Flame is more than paperwork. It's the beginning of a Spirit-led partnership between your family and a community committed to helping your child grow in faith, wisdom, and purpose.",
+  "fitItems": [
+    "You share our Statement of Faith and are committed to raising your children in the Christian tradition.",
+    "You see yourself as your child's primary teacher, with The Flame as an enrichment and discipleship partner.",
+    "You're ready to participate in the community — not simply drop off and pick up.",
+    "You believe your child's education and spiritual formation should be connected, not separated.",
+    "You want your child to be known, challenged, encouraged, and rooted in Christ."
+  ],
+  "enrollmentOpen": true,
+  "enrollmentOpenMessage": "Enrollment for the upcoming school year is open. Complete the form to begin the admissions process and receive information about upcoming information meetings.",
+  "enrollmentClosedMessage": "Enrollment for the current school year is now closed. Please fill out the form to be added to our waitlist and notified when enrollment opens for the next school year.",
+  "afterEnrollBody": []
+}

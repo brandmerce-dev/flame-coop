@@ -1,0 +1,173 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import ImagePlaceholder from '@/components/ImagePlaceholder';
+
+export const metadata: Metadata = {
+  title: 'Tuition & Scholarship',
+  description:
+    'Clear, transparent tuition — and scholarship options through the Step Up for Students program. An investment in faith, formation, and future.',
+  openGraph: {
+    title:       'Tuition & Scholarship | The Flame Christian Co-op',
+    description: 'Clear, transparent tuition with scholarship options through Step Up for Students.',
+  },
+  alternates: { canonical: 'https://theflame.org/tuition-scholarship' },
+};
+
+const tuitionRows = [
+  { program: 'Sparks — Kindergarten',                             appFee1: '$50', appFeeAdd: '$25', supplyFee: '$200', regFee: '$500',   bgFee: '$20', tuitionTotal: '$3,000', grandTotal: '$3,500' },
+  { program: 'Elementary (Embers · Illuminators · Firestarters)', appFee1: '$50', appFeeAdd: '$25', supplyFee: '$200', regFee: '$1,250', bgFee: '$20', tuitionTotal: '$3,000', grandTotal: '$4,250' },
+  { program: 'Discipleship I & II — Full Day',                    appFee1: '$50', appFeeAdd: '$25', supplyFee: '$150', regFee: '$1,250', bgFee: '$20', tuitionTotal: '$4,100', grandTotal: '$5,350' },
+  { program: 'Discipleship III — Half Day / Morning',             appFee1: '$50', appFeeAdd: '$25', supplyFee: '$150', regFee: '$1,250', bgFee: '$20', tuitionTotal: '$2,250', grandTotal: '$3,500' },
+  { program: 'Discipleship I & II — Morning Block',               appFee1: '$50', appFeeAdd: '$25', supplyFee: '$150', regFee: '$1,250', bgFee: '$20', tuitionTotal: '$2,450', grandTotal: '$3,700' },
+  { program: 'Discipleship I & II — Afternoon Block',             appFee1: '$50', appFeeAdd: '$25', supplyFee: '$150', regFee: '$1,250', bgFee: '$20', tuitionTotal: '$1,450', grandTotal: '$2,700' },
+  { program: 'Single Classes — D3 Only (existing families)',       appFee1: '—',   appFeeAdd: '—',   supplyFee: '—',   regFee: '—',      bgFee: '—',   tuitionTotal: '$1,100', grandTotal: '$1,100' },
+];
+
+const callouts = [
+  { program: 'Sparks (K)',                  total: '$3,500 tuition + reg.', note: 'Total first-year: ~$3,795' },
+  { program: 'Elementary',                  total: '$4,250 tuition + reg.', note: 'Total first-year: ~$4,545' },
+  { program: 'Discipleship I & II Full Day', total: '$5,350 tuition + reg.', note: 'Total first-year: ~$5,595' },
+  { program: 'Discipleship III',            total: '$1,100 total',          note: 'Existing Flame families only — no new-family fees' },
+];
+
+const footnote = 'Tuition paid in two equal installments: Aug 15 (1st half) · Dec 3 (2nd half). Supply fee secures the child\'s spot — due within 3 business days of acceptance. Background fee due after handbook submission. All fees non-refundable. New-family fees apply to first-year enrollment only.';
+
+export default function TuitionPage() {
+  return (
+    <>
+      {/* HERO */}
+      <section style={{ padding: '80px 0 64px', background: 'var(--cream2)' }}>
+        <div className="container--narrow" style={{ textAlign: 'center' }}>
+          <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>
+            Tuition &amp; Scholarship
+          </span>
+          <h1 style={{ marginBottom: '20px' }}>An Investment in Faith, Formation, and Future.</h1>
+          <p className="lead">
+            We know tuition is a meaningful decision for every family. Our goal is to make the process clear, transparent, and connected to the mission.
+          </p>
+        </div>
+      </section>
+
+      {/* TUITION TABLE */}
+      <section style={{ padding: 'var(--section-v) 0' }}>
+        <div className="container">
+          <div className="reveal" style={{ maxWidth: '600px', marginBottom: '32px' }}>
+            <span className="eyebrow">Fee &amp; Tuition Overview</span>
+            <h2 style={{ marginBottom: '12px' }}>Clear Numbers. No Surprises.</h2>
+            <p>All fees are non-refundable. Tuition is paid in two equal installments. First-year totals include new-family fees: application, supply, registration, and background check.</p>
+          </div>
+
+          <div className="tuition-wrap reveal">
+            <table className="tuition-table">
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'left' }}>Program</th>
+                  <th>App Fee<br />1st child</th>
+                  <th>App Fee<br />add&apos;l</th>
+                  <th>Supply<br />Fee</th>
+                  <th>Reg.<br />Fee</th>
+                  <th>BG<br />/parent</th>
+                  <th>Tuition<br />Total</th>
+                  <th>Tuition +<br />Reg. Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tuitionRows.map((row, i) => (
+                  <tr key={i}>
+                    <td>{row.program}</td>
+                    <td>{row.appFee1}</td>
+                    <td>{row.appFeeAdd}</td>
+                    <td>{row.supplyFee}</td>
+                    <td>{row.regFee}</td>
+                    <td>{row.bgFee}</td>
+                    <td>{row.tuitionTotal}</td>
+                    <td>{row.grandTotal}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan={8}>{footnote}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div className="tuition-callouts reveal">
+            {callouts.map((c, i) => (
+              <div key={i} className="tuition-callout">
+                <div className="tuition-callout__program">{c.program}</div>
+                <div className="tuition-callout__total">{c.total}</div>
+                <div style={{ fontSize: '.8rem', color: 'var(--mid)', marginTop: '4px' }}>{c.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SCHOLARSHIPS */}
+      <section className="section--cream">
+        <div className="container">
+          <div className="split split--reverse reveal">
+            <div className="split__body">
+              <span className="eyebrow">Scholarships</span>
+              <h2 style={{ marginBottom: '20px' }}>Scholarships Welcome Here.</h2>
+              <p>
+                The Flame Christian Cooperative is a direct provider for the Step Up for Students Scholarship in Florida. We believe financial barriers should not stand between a family and the Christ-centered education God is calling them toward.
+              </p>
+              <p style={{ marginTop: '12px', marginBottom: '24px' }}>
+                We work with families using the following scholarship programs:
+              </p>
+              <div className="scholarship-cards">
+                <div className="scholarship-card">
+                  <div className="scholarship-card__name">Personalized Education Program (PEP)</div>
+                  <p className="scholarship-card__desc">Through the Florida Tax Credit Scholarship Program</p>
+                </div>
+                <div className="scholarship-card">
+                  <div className="scholarship-card__name">FES-UA Scholarship</div>
+                  <p className="scholarship-card__desc">Family Empowerment Scholarship for Students with Unique Abilities</p>
+                </div>
+              </div>
+              <p style={{ marginTop: '24px' }}>
+                Families can pay directly through the Step Up for Students Marketplace portal, or we provide all documentation for a reimbursement request. Your tuition agreement remains in place whether you use scholarship funds or pay out of pocket.
+              </p>
+            </div>
+            <div className="split__media reveal reveal-delay-1">
+              <ImagePlaceholder label="Photo: Student and parent in learning environment" aspectRatio="wide" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEED HELP CTA */}
+      <section className="section--dark" style={{ padding: '80px 0' }}>
+        <div className="container--narrow" style={{ textAlign: 'center' }}>
+          <span
+            className="eyebrow"
+            style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}
+          >
+            Need Help?
+          </span>
+          <h2 style={{ marginBottom: '20px' }}>You Don&apos;t Have to Figure This Out Alone.</h2>
+          <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '8px' }}>
+            If you&apos;re looking at this page and feeling unsure about tuition timing, scholarship eligibility, or what applies to your child&apos;s program — reach out.
+          </p>
+          <p style={{ color: 'rgba(255,255,255,.5)', marginBottom: '36px' }}>
+            Our admissions team will walk you through it clearly, without pressure.
+          </p>
+          <div className="btn-group" style={{ justifyContent: 'center' }}>
+            <Link href="/admissions" className="btn btn--primary">Ask About Scholarships</Link>
+            <a
+              href="https://www.stepupforstudents.org/scholarships/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--outline-white"
+            >
+              Visit Step Up for Students
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

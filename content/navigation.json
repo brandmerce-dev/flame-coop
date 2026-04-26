@@ -1,0 +1,11 @@
+{
+  "links": [
+    { "label": "About",                 "href": "/about" },
+    { "label": "Beliefs",               "href": "/beliefs" },
+    { "label": "Programs",              "href": "/programs" },
+    { "label": "Admissions",            "href": "/admissions" },
+    { "label": "Tuition & Scholarship", "href": "/tuition-scholarship" }
+  ],
+  "ctaLabel": "Request Info",
+  "ctaHref":  "/admissions"
+}
