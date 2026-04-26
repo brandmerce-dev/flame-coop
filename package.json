@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "npx @opennextjs/cloudflare build && cp .open-next/worker.js .open-next/assets/_worker.js",
+    "pages:build": "npx @opennextjs/cloudflare build && sh -c 'cp -r .open-next/cloudflare .open-next/middleware .open-next/server-functions .open-next/assets/ 2>/dev/null; cp -r .open-next/.build .open-next/assets/ 2>/dev/null; cp .open-next/worker.js .open-next/assets/_worker.js'",
     "pages:deploy": "wrangler deploy",
     "pages:dev": "wrangler dev"
   },
