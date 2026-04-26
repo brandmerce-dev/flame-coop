@@ -2,17 +2,10 @@ name = "flame-coop"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
-# Cloudflare Pages configuration
-# Deploy with: wrangler pages deploy .vercel/output/static --project-name=flame-coop
-# Or connect the GitHub repo in the Cloudflare dashboard and set the build command:
-#   Build command:  npx @cloudflare/next-on-pages
-#   Build output:   .vercel/output/static
-#   Node.js version: 20
-
-pages_build_output_dir = ".vercel/output/static"
-
-[env.production]
-name = "flame-coop"
+# OpenNext Cloudflare adapter
+# Build command:  npx @opennextjs/cloudflare build
+# Build output:   .open-next/assets
+pages_build_output_dir = ".open-next/assets"
 
 # Environment variables — set these in the Cloudflare dashboard, not here:
 # KEYSTATIC_GITHUB_CLIENT_ID     = "your-github-oauth-app-client-id"
