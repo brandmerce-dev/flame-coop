@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { createReader } from '@keystatic/core/reader';
 import Hero from '@/components/Hero';
 import ScriptureBanner from '@/components/ScriptureBanner';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
+import keystaticConfig from '@/keystatic/config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
 
 export const metadata: Metadata = {
   title: 'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
@@ -25,15 +29,27 @@ const programTiles = [
   { badge: <>D<span style={{ fontSize: '.65em' }}>III</span></>, name: 'Discipleship III', ages: 'High School',   line: 'Defending the faith. Living it out. Ready for what\'s next.' },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cms = await reader.singletons.homepage.read();
+
+  const heroEyebrow    = cms?.heroEyebrow    ?? 'Welcome to The Flame';
+  const heroHeadline   = cms?.heroHeadline   ?? 'Stoking the Fire of the Holy Spirit in the Next Generation';
+  const heroSubhead    = cms?.heroSubheadline ?? "A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be.";
+  const heroTrustLine  = cms?.heroTrustLine  ?? 'Serving homeschool families from Kindergarten through high school discipleship';
+  const heroImageSrc   = cms?.heroImage      ?? undefined;
+
+  const scriptureQuote    = cms?.scriptureQuote    ?? '"For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands, for God gave us a spirit not of fear but of power and of love and of self-control."';
+  const scriptureCitation = cms?.scriptureCitation ?? '— 2 Timothy 1:6–7';
+
   return (
     <>
       {/* HERO */}
       <Hero
-        eyebrow="Welcome to The Flame"
-        headline={<>Stoking the Fire of the<br />Holy Spirit in the<br />Next Generation</>}
-        subheadline="A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be."
-        trustLine="Serving homeschool families from Kindergarten through high school discipleship"
+        eyebrow={heroEyebrow}
+        headline={heroHeadline}
+        subheadline={heroSubhead}
+        trustLine={heroTrustLine}
+        imageSrc={heroImageSrc ?? undefined}
         buttons={[
           { label: 'Begin Admissions',   href: '/admissions',  variant: 'primary' },
           { label: 'Explore Programs',   href: '/programs',    variant: 'outline-white' },
@@ -72,8 +88,8 @@ export default function HomePage() {
       {/* SCRIPTURE BANNER */}
       <ScriptureBanner
         reference="Our Foundation"
-        quote='"For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands, for God gave us a spirit not of fear but of power and of love and of self-control."'
-        citation="— 2 Timothy 1:6–7"
+        quote={scriptureQuote}
+        citation={scriptureCitation}
       />
 
       {/* WHY CHOOSE US */}
