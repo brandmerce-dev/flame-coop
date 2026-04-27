@@ -7,7 +7,7 @@ import ScrollReveal from './ScrollReveal';
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isStudio = pathname.startsWith('/studio') || pathname.startsWith('/keystatic');
+  const isStudio = pathname.startsWith('/keystatic');
 
   if (isStudio) return <>{children}</>;
 
