@@ -6,4 +6,7 @@ export default defineCliConfig({
     dataset:   'production',
   },
   studioHost: 'flame-coop',
+  deployment: {
+    appId: 'hyn1edmdc5g5n324huvnyzon',
+  },
 })
