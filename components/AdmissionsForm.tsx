@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
-import RequestInfoModal from '@/components/RequestInfoModal';
+import { openRequestInfoModal } from '@/components/RequestInfoModal';
 
 interface AdmissionsFormProps {
   enrollmentOpen:          boolean;
@@ -21,7 +20,6 @@ const admissionSteps = [
 ];
 
 export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage }: AdmissionsFormProps) {
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -69,7 +67,7 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
                 Our admissions form is powered by Eduweby, the platform we use to manage enrollment. It takes about two minutes to complete.
               </p>
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={openRequestInfoModal}
                 className="btn btn--primary"
               >
                 Begin Your Inquiry
@@ -82,7 +80,6 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
         </div>
       </section>
 
-      <RequestInfoModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
