@@ -28,10 +28,14 @@ export const homepage = defineType({
     defineField({ name: 'heroImage',        title: 'Background Image',           type: 'image', options: { hotspot: true }, group: 'hero' }),
 
     // Who We Are
-    defineField({ name: 'whoWeAreEyebrow',  title: 'Eyebrow',                    type: 'string',  group: 'who' }),
-    defineField({ name: 'whoWeAreHeading',  title: 'Heading',                    type: 'string',  group: 'who' }),
-    defineField({ name: 'whoWeAreLead',     title: 'Lead Paragraph',             type: 'text', rows: 3, group: 'who' }),
-    defineField({ name: 'whoWeAreBody',     title: 'Body',                       type: 'text', rows: 5, group: 'who' }),
+    defineField({ name: 'whoWeAreEyebrow',     title: 'Eyebrow',           type: 'string', group: 'who' }),
+    defineField({ name: 'whoWeAreHeading',     title: 'Heading',           type: 'string', group: 'who' }),
+    defineField({ name: 'whoWeAreLead',        title: 'Lead Paragraph',    type: 'text', rows: 3, group: 'who' }),
+    defineField({ name: 'whoWeAreSubhead',     title: 'Subheadline',       type: 'string', group: 'who' }),
+    defineField({ name: 'whoWeAreBody',        title: 'Body',              type: 'text', rows: 5, group: 'who' }),
+    defineField({ name: 'whoWeAreImage',       title: 'Image',             type: 'image', options: { hotspot: true }, group: 'who' }),
+    defineField({ name: 'whoWeAreButtonText',  title: 'Button Text',       type: 'string', group: 'who' }),
+    defineField({ name: 'whoWeAreButtonUrl',   title: 'Button URL',        type: 'string', group: 'who' }),
 
     // Scripture
     defineField({ name: 'scriptureQuote',    title: 'Quote',                     type: 'text', rows: 4, group: 'scripture' }),

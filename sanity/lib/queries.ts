@@ -8,7 +8,8 @@ export async function getHomepage() {
   return client.fetch(groq`*[_type == "homepage" && _id == "homepage"][0] {
     heroEyebrow, heroHeadline, heroSubheadline, heroTrustLine,
     heroImage ${imageFields},
-    whoWeAreEyebrow, whoWeAreHeading, whoWeAreLead, whoWeAreBody,
+    whoWeAreEyebrow, whoWeAreHeading, whoWeAreLead, whoWeAreSubhead, whoWeAreBody,
+    whoWeAreImage ${imageFields}, whoWeAreButtonText, whoWeAreButtonUrl,
     scriptureQuote, scriptureCitation,
     whyChooseHeading, whyChooseSubhead,
     programsEyebrow, programsHeading, programsSubhead,

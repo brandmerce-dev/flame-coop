@@ -2,6 +2,7 @@ export const revalidate = 60;
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import Hero from '@/components/Hero';
 import ScriptureBanner from '@/components/ScriptureBanner';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
@@ -41,6 +42,34 @@ export default async function HomePage() {
   const scriptureQuote    = cms?.scriptureQuote    ?? '"For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands, for God gave us a spirit not of fear but of power and of love and of self-control."';
   const scriptureCitation = cms?.scriptureCitation ?? '— 2 Timothy 1:6–7';
 
+  // Who We Are
+  const whoEyebrow    = cms?.whoWeAreEyebrow    ?? 'Who We Are';
+  const whoHeading    = cms?.whoWeAreHeading     ?? 'More Than a Co-op. A Place Where Children Grow in Faith and Confidence.';
+  const whoLead       = cms?.whoWeAreLead        ?? 'For families who want the support of a classroom, the warmth of community, and a Christ-centered place where their children can learn, build friendships, and be poured into.';
+  const whoSubhead    = cms?.whoWeAreSubhead     ?? 'Small Groups. Real Support. Christ at the Center.';
+  const whoBody       = cms?.whoWeAreBody        ?? 'The Flame gives homeschool families a place where children are taught, encouraged, and discipled in a smaller, more personal setting. With caring tutors, meaningful classes, and a community of families walking in the same direction, students grow academically, spiritually, and socially — without losing the heart and flexibility of homeschooling.';
+  const whoImageSrc   = cms?.whoWeAreImage ? urlFor(cms.whoWeAreImage).width(800).url() : undefined;
+  const whoButtonText = cms?.whoWeAreButtonText ?? 'Learn More About Us';
+  const whoButtonUrl  = cms?.whoWeAreButtonUrl  ?? '/about';
+
+  // Why Choose Us
+  const whyHeading  = cms?.whyChooseHeading ?? 'A Place Where Faith, Learning, and Community Grow Together.';
+  const whySubhead  = cms?.whyChooseSubhead ?? "For many families, homeschooling is a calling. But that doesn't mean you have to carry it alone. The Flame gives families a Christ-centered community and a clear path for growth.";
+
+  // Programs Preview
+  const programsEyebrow = cms?.programsEyebrow ?? 'Our Programs';
+  const programsHeading = cms?.programsHeading ?? 'A Path That Grows With Your Child.';
+  const programsSubhead = cms?.programsSubhead ?? 'From the first spark in kindergarten to high school discipleship — one connected journey, built to go as deep as your child is ready.';
+
+  // Feels Like
+  const feelsHeading = cms?.feelsLikeHeading ?? 'Known by Name. Rooted in Truth. Sent With Purpose.';
+  const feelsLead    = cms?.feelsLikeLead    ?? "A child's education should shape more than what they know. It should shape who they are becoming.";
+  const feelsBody    = cms?.feelsLikeBody    ?? 'At The Flame, students are surrounded by adults and families who care about their hearts, their minds, their character, and their walk with the Lord. We want children who can read well, think clearly, write confidently, pray with courage, and stand firm in a world that will challenge what they believe.';
+
+  // CTA
+  const ctaHeading    = cms?.ctaHeading    ?? "We'd Love to Meet Your Family.";
+  const ctaSubheading = cms?.ctaSubheading ?? "Whether you're new to homeschooling or searching for something deeper — The Flame may be exactly where God is leading you.";
+
   return (
     <>
       {/* HERO */}
@@ -60,27 +89,23 @@ export default async function HomePage() {
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
           <div className="reveal" style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 48px' }}>
-            <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>Who We Are</span>
-            <h2 style={{ marginBottom: '20px' }}>
-              More Than a Co-op. A Place Where Children Grow in Faith and Confidence.
-            </h2>
-            <p className="lead">
-              For families who want the support of a classroom, the warmth of community, and a Christ-centered place where their children can learn, build friendships, and be poured into.
-            </p>
+            <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>{whoEyebrow}</span>
+            <h2 style={{ marginBottom: '20px' }}>{whoHeading}</h2>
+            <p className="lead">{whoLead}</p>
           </div>
           <div className="split split--40 reveal">
             <div className="split__media">
-              <ImagePlaceholder label="Photo: Small group classroom moment" aspectRatio="tall" />
+              {whoImageSrc ? (
+                <Image src={whoImageSrc} alt={whoHeading} width={800} height={1067} style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)' }} />
+              ) : (
+                <ImagePlaceholder label="Photo: Small group classroom moment" aspectRatio="tall" />
+              )}
             </div>
             <div className="split__body">
-              <h3 style={{ marginBottom: '16px', fontSize: '1.35rem' }}>
-                Small Groups. Real Support. Christ at the Center.
-              </h3>
-              <p>
-                The Flame gives homeschool families a place where children are taught, encouraged, and discipled in a smaller, more personal setting. With caring tutors, meaningful classes, and a community of families walking in the same direction, students grow academically, spiritually, and socially — without losing the heart and flexibility of homeschooling.
-              </p>
+              <h3 style={{ marginBottom: '16px' }}>{whoSubhead}</h3>
+              <p>{whoBody}</p>
               <div style={{ marginTop: '28px' }}>
-                <Link href="/about" className="btn btn--primary">Learn More About Us</Link>
+                <Link href={whoButtonUrl} className="btn btn--primary">{whoButtonText}</Link>
               </div>
             </div>
           </div>
@@ -99,10 +124,8 @@ export default async function HomePage() {
         <div className="container">
           <div style={{ maxWidth: '520px', marginBottom: '48px' }} className="reveal">
             <span className="eyebrow">Why Choose Us</span>
-            <h2 style={{ marginBottom: '16px' }}>A Place Where Faith, Learning, and Community Grow Together.</h2>
-            <p style={{ color: 'rgba(255,255,255,.6)', fontSize: '1rem' }}>
-              For many families, homeschooling is a calling. But that doesn&apos;t mean you have to carry it alone. The Flame gives families a Christ-centered community and a clear path for growth.
-            </p>
+            <h2 style={{ marginBottom: '16px' }}>{whyHeading}</h2>
+            <p style={{ color: 'rgba(255,255,255,.6)', fontSize: '1rem' }}>{whySubhead}</p>
           </div>
           <div className="cards3 reveal">
             <div className="card3">
@@ -134,9 +157,9 @@ export default async function HomePage() {
       <section className="section--cream">
         <div className="container">
           <div className="reveal" style={{ maxWidth: '600px', marginBottom: '8px' }}>
-            <span className="eyebrow">Our Programs</span>
-            <h2 style={{ marginBottom: '16px' }}>A Path That Grows With Your Child.</h2>
-            <p className="lead">From the first spark in kindergarten to high school discipleship — one connected journey, built to go as deep as your child is ready.</p>
+            <span className="eyebrow">{programsEyebrow}</span>
+            <h2 style={{ marginBottom: '16px' }}>{programsHeading}</h2>
+            <p className="lead">{programsSubhead}</p>
           </div>
           <div className="program-tiles reveal">
             {programTiles.map((tile, i) => (
@@ -162,11 +185,9 @@ export default async function HomePage() {
           <div className="split">
             <div className="split__body reveal">
               <span className="eyebrow">What The Flame Feels Like</span>
-              <h2 style={{ marginBottom: '16px' }}>Known by Name. Rooted in Truth. Sent With Purpose.</h2>
-              <p className="lead" style={{ marginBottom: '20px' }}>A child&apos;s education should shape more than what they know. It should shape who they are becoming.</p>
-              <p style={{ marginBottom: '24px' }}>
-                At The Flame, students are surrounded by adults and families who care about their hearts, their minds, their character, and their walk with the Lord. We want children who can read well, think clearly, write confidently, pray with courage, and stand firm in a world that will challenge what they believe.
-              </p>
+              <h2 style={{ marginBottom: '16px' }}>{feelsHeading}</h2>
+              <p className="lead" style={{ marginBottom: '20px' }}>{feelsLead}</p>
+              <p style={{ marginBottom: '24px' }}>{feelsBody}</p>
               <div className="proof-rows">
                 <div className="proof-row">Children are known by name — not lost in a crowd</div>
                 <div className="proof-row">Faith is woven into every subject, not added as an afterthought</div>
@@ -203,10 +224,8 @@ export default async function HomePage() {
           <div className="split" style={{ gap: '60px', alignItems: 'center' }}>
             <div className="reveal">
               <span className="eyebrow">Ready to Take the Next Step?</span>
-              <h2 style={{ marginBottom: '16px' }}>We&apos;d Love to Meet Your Family.</h2>
-              <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '28px' }}>
-                Whether you&apos;re new to homeschooling or searching for something deeper — The Flame may be exactly where God is leading you.
-              </p>
+              <h2 style={{ marginBottom: '16px' }}>{ctaHeading}</h2>
+              <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '28px' }}>{ctaSubheading}</p>
               <div className="btn-group">
                 <Link href="/admissions" className="btn btn--primary">Begin Admissions</Link>
                 <Link href="/programs" className="link-arrow" style={{ color: 'rgba(255,255,255,.6)' }}>Explore Programs</Link>
