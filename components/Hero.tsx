@@ -106,17 +106,15 @@ export default function Hero({
             {headline}
           </h1>
 
-          <div style={{ width: '48px', height: '1px', background: 'var(--gold)', margin: '0 auto 32px', opacity: .7 }} />
-
           <p
             style={{
-              color:      'rgba(255,255,255,.82)',
-              fontSize:   '1.1rem',
-              maxWidth:   '540px',
-              lineHeight: '1.85',
-              fontWeight: 300,
+              color:        'rgba(255,255,255,.9)',
+              fontSize:     '1.15rem',
+              maxWidth:     '540px',
+              lineHeight:   '1.75',
+              fontWeight:   400,
+              margin:       '0 auto',
               marginBottom: trustLine ? '8px' : '40px',
-              margin:     '0 auto',
             }}
           >
             {subheadline}
