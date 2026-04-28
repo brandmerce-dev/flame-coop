@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
+import RequestInfoModal from '@/components/RequestInfoModal';
 
 interface AdmissionsFormProps {
-  enrollmentOpen:         boolean;
-  enrollmentOpenMessage:  string;
+  enrollmentOpen:          boolean;
+  enrollmentOpenMessage:   string;
   enrollmentClosedMessage: string;
 }
 
@@ -20,39 +21,7 @@ const admissionSteps = [
 ];
 
 export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage }: AdmissionsFormProps) {
-  const [formData, setFormData] = useState({
-    firstName: '', lastName: '', email: '', phone: '',
-    numChildren: '', ages: '', programs: '', message: '',
-  });
-  const [submitted, setSubmitted]   = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitting(true);
-    const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          subject: 'New Admissions Inquiry — The Flame Christian Co-op',
-          from_name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email, phone: formData.phone,
-          num_children: formData.numChildren, ages: formData.ages,
-          programs_of_interest: formData.programs, message: formData.message,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) setSubmitted(true);
-    } catch { setSubmitted(true); }
-    finally { setSubmitting(false); }
-  }
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -79,7 +48,7 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
         </div>
       </section>
 
-      {/* REQUEST INFO FORM */}
+      {/* REQUEST INFO */}
       <section className="section--cream2" id="admissions-form">
         <div className="container">
           <div className="split reveal">
@@ -93,64 +62,18 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
               </div>
               <span className="eyebrow">Request Information</span>
               <h2 style={{ marginBottom: '20px' }}>Have Questions? We&apos;d Love to Meet Your Family.</h2>
-              <p style={{ marginBottom: '28px' }}>
+              <p style={{ marginBottom: '12px' }}>
                 Tell us a little about your family and what you&apos;re looking for. Someone from our team will follow up with next steps and upcoming information meeting details.
               </p>
-              {submitted ? (
-                <div style={{ background: 'var(--cream)', borderLeft: '3px solid var(--gold)', padding: '24px 28px', borderRadius: '0 var(--radius) var(--radius) 0' }}>
-                  <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', color: 'var(--black)', marginBottom: '8px' }}>
-                    Thank you! We&apos;ll be in touch soon.
-                  </p>
-                  <p style={{ color: 'var(--mid)', fontSize: '.9rem' }}>
-                    Someone from The Flame team will reach out within a few business days with next steps and upcoming information meeting details.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <div className="form-grid">
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="firstName">First Name</label>
-                      <input id="firstName" name="firstName" type="text" placeholder="Your first name" value={formData.firstName} onChange={handleChange} required />
-                    </div>
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="lastName">Last Name</label>
-                      <input id="lastName" name="lastName" type="text" placeholder="Your last name" value={formData.lastName} onChange={handleChange} required />
-                    </div>
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="email">Email Address</label>
-                      <input id="email" name="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleChange} required />
-                    </div>
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="phone">Phone</label>
-                      <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" value={formData.phone} onChange={handleChange} />
-                    </div>
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="numChildren">Number of Children</label>
-                      <input id="numChildren" name="numChildren" type="text" placeholder="e.g. 2" value={formData.numChildren} onChange={handleChange} />
-                    </div>
-                    <div className="form-field">
-                      <label className="field-label" htmlFor="ages">Ages / Grade Levels</label>
-                      <input id="ages" name="ages" type="text" placeholder="e.g. 7, 10" value={formData.ages} onChange={handleChange} />
-                    </div>
-                    <div className="form-field form-field--full">
-                      <label className="field-label" htmlFor="programs">Programs of Interest</label>
-                      <input id="programs" name="programs" type="text" placeholder="e.g. Embers, Discipleship I" value={formData.programs} onChange={handleChange} />
-                    </div>
-                    <div className="form-field form-field--full">
-                      <label className="field-label" htmlFor="message">Message / Questions</label>
-                      <textarea id="message" name="message" placeholder="Tell us a little about your family and what you're looking for..." value={formData.message} onChange={handleChange} />
-                    </div>
-                  </div>
-                  <div style={{ marginTop: '20px' }}>
-                    <button type="submit" className="btn btn--primary" disabled={submitting}>
-                      {submitting ? 'Sending…' : 'Submit Request'}
-                    </button>
-                  </div>
-                  <p className="form-consent" style={{ marginTop: '12px' }}>
-                    By submitting this form, you agree to be contacted by The Flame Christian Co-op regarding admissions, programs, and enrollment.
-                  </p>
-                </form>
-              )}
+              <p style={{ marginBottom: '32px', color: 'var(--mid)' }}>
+                Our admissions form is powered by Eduweby, the platform we use to manage enrollment. It takes about two minutes to complete.
+              </p>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="btn btn--primary"
+              >
+                Begin Your Inquiry
+              </button>
             </div>
             <div className="split__media reveal reveal-delay-1" style={{ paddingTop: '48px' }}>
               <ImagePlaceholder label="Photo: Welcoming community atmosphere" aspectRatio="tall" />
@@ -158,6 +81,8 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
           </div>
         </div>
       </section>
+
+      <RequestInfoModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
