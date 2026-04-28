@@ -12,9 +12,13 @@ export async function getHomepage() {
     whoWeAreImage ${imageFields}, whoWeAreButtonText, whoWeAreButtonUrl,
     scriptureQuote, scriptureCitation,
     whyChooseHeading, whyChooseSubhead,
+    whyChooseCards[] { cardTitle, cardBody },
     programsEyebrow, programsHeading, programsSubhead,
     feelsLikeHeading, feelsLikeLead, feelsLikeBody,
+    feelsLikeImage ${imageFields},
+    feelsLikeProofRows,
     ctaHeading, ctaSubheading,
+    ctaChecklistItems,
   }`)
 }
 
