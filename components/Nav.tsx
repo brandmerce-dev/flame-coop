@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import RequestInfoModal from '@/components/RequestInfoModal';
 
 const navLinks = [
   { href: '/about',                label: 'About' },
@@ -22,11 +23,6 @@ export default function Nav() {
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = modalOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [modalOpen]);
 
   return (
     <>
@@ -174,70 +170,7 @@ export default function Nav() {
         `}</style>
       </nav>
 
-      {/* Request Info Modal */}
-      {modalOpen && (
-        <div
-          onClick={(e) => { if (e.target === e.currentTarget) setModalOpen(false); }}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(20,20,20,.7)',
-            zIndex: 1000,
-            overflowY: 'auto',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            padding: '40px 16px',
-          }}
-        >
-          <div
-            style={{
-              background: '#fff',
-              borderRadius: '8px',
-              width: '100%',
-              maxWidth: '860px',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Modal header */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '20px 24px',
-              borderBottom: '1px solid var(--cream2)',
-            }}>
-              <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 600, color: 'var(--obsidian)' }}>
-                Request Information
-              </p>
-              <button
-                onClick={() => setModalOpen(false)}
-                aria-label="Close"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '1.5rem',
-                  lineHeight: 1,
-                  color: 'var(--obsidian)',
-                  padding: '4px 8px',
-                }}
-              >
-                ×
-              </button>
-            </div>
-
-            {/* Iframe */}
-            <iframe
-              src="https://eduweby.com/embed/form?tenant=flame-christian-coop"
-              width="100%"
-              style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block' }}
-              title="Request Information Form"
-            />
-          </div>
-        </div>
-      )}
+      <RequestInfoModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

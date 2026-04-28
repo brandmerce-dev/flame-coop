@@ -136,7 +136,7 @@ p:last-child { margin-bottom: 0; }
 
 h1, .h1 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.8rem, 5.5vw, 4.8rem) !important;
+  font-size:      clamp(1.8rem, 5.5vw, 4.8rem);
   font-weight:    600;
   line-height:    1.1;
   letter-spacing: -0.025em;
@@ -145,7 +145,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.4rem, 3vw, 2.8rem) !important;
+  font-size:      clamp(1.4rem, 3vw, 2.8rem);
   font-weight:    600;
   line-height:    1.2;
   letter-spacing: -0.015em;
@@ -154,7 +154,7 @@ h2, .h2 {
 
 h3, .h3 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.15rem, 2vw, 1.8rem) !important;
+  font-size:      clamp(1.15rem, 2vw, 1.8rem);
   font-weight:    600;
   line-height:    1.25;
   letter-spacing: -0.01em;
@@ -163,7 +163,7 @@ h3, .h3 {
 
 h4, .h4 {
   font-family:    var(--font-body);
-  font-size:      clamp(0.95rem, 1.4vw, 1.25rem) !important;
+  font-size:      clamp(0.95rem, 1.4vw, 1.25rem);
   font-weight:    600;
   line-height:    1.35;
   letter-spacing: -0.005em;
@@ -172,20 +172,20 @@ h4, .h4 {
 
 h5, .h5 {
   font-family:    var(--font-body);
-  font-size:      clamp(0.85rem, 1vw, 1rem) !important;
+  font-size:      clamp(0.85rem, 1vw, 1rem);
   font-weight:    600;
   line-height:    1.4;
   color:          var(--heading-color);
 }
 
 h6, .h6 {
-  font-family:    var(--font-body) !important;
-  font-size:      clamp(0.65rem, 0.75vw, 0.72rem) !important;
+  font-family:    var(--font-body);
+  font-size:      clamp(0.65rem, 0.75vw, 0.72rem);
   font-weight:    600;
   line-height:    1.4;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color:          var(--primary) !important;
+  color:          var(--primary);
 }
 
 /* Headings on dark backgrounds */
