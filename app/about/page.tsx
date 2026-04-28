@@ -33,7 +33,7 @@ export default async function AboutPage() {
 
   const heroHeadline = cms?.heroHeadline ?? 'Built by Families. Fueled by Faith. On Fire for Jesus.';
   const heroLead     = cms?.heroLead     ?? 'The Flame exists because homeschool families believed children deserved more than a good education — they deserved a community that would call out the fire God placed inside them.';
-  const missionText  = cms?.missionText  ?? 'To provide a Christ-centered community committed to stoking the fire of the Holy Spirit within the next generation through real-life educational encounters with God's glory and love.';
+  const missionText  = cms?.missionText  ?? "To provide a Christ-centered community committed to stoking the fire of the Holy Spirit within the next generation through real-life educational encounters with God’s glory and love.";
   const visionText   = cms?.visionText   ?? 'To raise up Kingdom leaders who are on fire for Jesus — children who know who they are, can defend what they believe, and are equipped to impact the world with His love.';
   const modelText    = cms?.modelText    ?? 'The Flame is a cooperative — families doing life and learning together. Parents remain the primary educators. Our tutors and community provide structure, enrichment, discipleship, and the friendships that make homeschooling feel less lonely and a lot more alive.';
 
