@@ -408,6 +408,7 @@ h6, .h6 {
   height:        5px;
   border-radius: 50%;
   background:    var(--primary);
+  margin-top:    0.52em; /* aligns dot with cap-height of first line at 1.78 line-height */
 }
 
 .bg-dark .proof-row, .bg-dark2 .proof-row {
