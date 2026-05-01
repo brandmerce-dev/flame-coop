@@ -45,20 +45,21 @@
   --gold-light:        #C4AD82;
   --gold-hover:        #8C7A52;
 
-  /* Text Colors */
-  --text:              #2C2C2C;
-  --text-mid:          #666666;
-  --text-light:        #999999;
+  /* Text Colors — all updated to WCAG AA/AAA contrast ratios */
+  --text:              #1C1C1C;   /* 15.5:1 on white — was #2C2C2C */
+  --text-mid:          #4A4A4A;   /* 9.7:1 on white  — was #666666 */
+  --text-light:        #6B6B6B;   /* 5.9:1 on white  — was #999999 */
+  --text-meta:         #555555;   /* 7.5:1 on white  — labels & captions */
   --text-alt:          #B8B0A4;
-  --heading-color:     #1A1A1A;
+  --heading-color:     #111111;   /* 19:1 on white   — was #1A1A1A */
   --heading-alt:       #F5F2ED;
   --text-on-brand:     #FFFFFF;
 
   /* Convenience aliases */
-  --black:             #1A1A1A;
-  --dark:              #2C2C2C;
-  --mid:               #666666;
-  --light:             #999999;
+  --black:             #111111;   /* was #1A1A1A */
+  --dark:              #1C1C1C;   /* was #2C2C2C */
+  --mid:               #4A4A4A;   /* was #666666 */
+  --light:             #6B6B6B;   /* was #999999 */
 
   /* Borders */
   --border:            #DDD5C5;
@@ -111,12 +112,12 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 15px; /* ADA: 15px base — all rem values scale from here */
 }
 
 body {
   font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: 1rem;  /* 15px — clear, readable baseline */
   font-weight: 400;
   line-height: 1.78;
   color: var(--text);
@@ -127,7 +128,7 @@ body {
 img { max-width: 100%; display: block; }
 a   { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font: inherit; }
-p { color: #4A4A4A; line-height: 1.8; margin-bottom: 1rem; }
+p { color: var(--text-mid); line-height: 1.85; margin-bottom: 1.1rem; }
 p:last-child { margin-bottom: 0; }
 
 /* ─────────────────────────────────────────────────────────────
@@ -136,7 +137,7 @@ p:last-child { margin-bottom: 0; }
 
 h1, .h1 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.8rem, 5.5vw, 4.8rem);
+  font-size:      clamp(1.8rem, 5vw, 4rem);
   font-weight:    600;
   line-height:    1.1;
   letter-spacing: -0.025em;
@@ -145,7 +146,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.4rem, 3vw, 2.8rem);
+  font-size:      clamp(1.4rem, 3vw, 2.6rem);
   font-weight:    600;
   line-height:    1.2;
   letter-spacing: -0.015em;
@@ -154,7 +155,7 @@ h2, .h2 {
 
 h3, .h3 {
   font-family:    var(--font-heading);
-  font-size:      clamp(1.15rem, 2vw, 1.8rem);
+  font-size:      clamp(1.1rem, 2vw, 1.7rem);
   font-weight:    600;
   line-height:    1.25;
   letter-spacing: -0.01em;
@@ -163,7 +164,7 @@ h3, .h3 {
 
 h4, .h4 {
   font-family:    var(--font-body);
-  font-size:      clamp(0.95rem, 1.4vw, 1.25rem);
+  font-size:      1.15rem;
   font-weight:    600;
   line-height:    1.35;
   letter-spacing: -0.005em;
@@ -172,7 +173,7 @@ h4, .h4 {
 
 h5, .h5 {
   font-family:    var(--font-body);
-  font-size:      clamp(0.85rem, 1vw, 1rem);
+  font-size:      0.96rem;
   font-weight:    600;
   line-height:    1.4;
   color:          var(--heading-color);
@@ -282,12 +283,12 @@ h6, .h6 {
 ───────────────────────────────────────────────────────────── */
 
 .eyebrow {
-  font-family:    var(--font-body) !important;
-  font-size:      clamp(0.65rem, 0.75vw, 0.72rem) !important;
-  font-weight:    600 !important;
-  letter-spacing: 0.2em !important;
-  text-transform: uppercase !important;
-  color:          var(--primary) !important;
+  font-family:    var(--font-body);
+  font-size:      clamp(0.68rem, 0.75vw, 0.75rem);
+  font-weight:    600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:          var(--primary);
   display:        flex;
   align-items:    center;
   gap:            10px;
@@ -305,7 +306,7 @@ h6, .h6 {
 
 .bg-dark .eyebrow, .bg-dark2 .eyebrow,
 .eyebrow-light, .hero .eyebrow, .section-dark .eyebrow {
-  color: var(--primary-alt) !important;
+  color: var(--primary-alt);
 }
 
 .bg-dark .eyebrow::before, .bg-dark2 .eyebrow::before,
@@ -319,8 +320,8 @@ h6, .h6 {
 
 .lead {
   font-family: var(--font-body);
-  font-size:   clamp(1rem, 1.2vw, 1.15rem);
-  font-weight: 300;
+  font-size:   clamp(1rem, 1.1vw, 1.1rem);
+  font-weight: 400;  /* was 300 — too thin for ADA readability */
   line-height: 1.85;
   color:       var(--text-mid);
 }
@@ -410,9 +411,9 @@ h6, .h6 {
   display:     flex;
   align-items: center;
   gap:         14px;
-  font-size:   clamp(0.875rem, 1vw, 0.96rem);
+  font-size:   1rem;
   color:       var(--text);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .proof-row::before {
@@ -663,7 +664,7 @@ h6, .h6 {
 
 .card3__icon  { width: 36px; height: 36px; margin-bottom: 20px; opacity: .7; }
 .card3__title { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 600; color: var(--heading-alt); margin-bottom: 12px; line-height: 1.3; }
-.card3__body  { font-size: .92rem; color: rgba(255,255,255,.65); line-height: 1.75; }
+.card3__body  { font-size: 1rem; color: rgba(255,255,255,.78); line-height: 1.78; }
 
 @media (max-width: 900px) {
   .cards3 { grid-template-columns: 1fr; }
@@ -710,9 +711,9 @@ h6, .h6 {
   margin-top:      2px;
 }
 
-.program-tile__name  { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--black); line-height: 1.2; margin-bottom: 3px; }
-.program-tile__ages  { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-.program-tile__line  { font-size: .9rem; color: var(--mid); line-height: 1.6; }
+.program-tile__name  { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--black); line-height: 1.2; margin-bottom: 3px; }
+.program-tile__ages  { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.program-tile__line  { font-size: .95rem; color: var(--mid); line-height: 1.65; }
 
 /* ─────────────────────────────────────────────────────────────
    PROGRAM CARDS (detail)
@@ -751,7 +752,7 @@ h6, .h6 {
 
 .prog-card__body   { padding: 24px 28px; border-left: 1px solid rgba(166,146,100,.18); }
 .prog-card__theme  { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-.prog-card__text   { font-size: .94rem; color: var(--dark); line-height: 1.75; }
+.prog-card__text   { font-size: 1rem; color: var(--dark); line-height: 1.78; }
 
 .prog-card--discipleship .prog-card__badge { background: #1A1512; }
 
@@ -793,7 +794,7 @@ h6, .h6 {
 
 .step__body  { padding: 20px 24px; border-left: 1px solid rgba(166,146,100,.18); display: flex; flex-direction: column; gap: 6px; }
 .step__title { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--black); line-height: 1.2; }
-.step__text  { font-size: .9rem; color: var(--dark); line-height: 1.7; }
+.step__text  { font-size: 1rem; color: var(--dark); line-height: 1.75; }
 .step__fee   { font-size: .78rem; color: var(--mid); font-style: italic; }
 
 /* ─────────────────────────────────────────────────────────────
@@ -818,8 +819,8 @@ h6, .h6 {
 
 .diff-card:hover { background: var(--bg); border-top-color: var(--gold); }
 
-.diff-card__title { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 10px; line-height: 1.25; }
-.diff-card__text  { font-size: .88rem; color: var(--mid); line-height: 1.7; }
+.diff-card__title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--black); margin-bottom: 10px; line-height: 1.25; }
+.diff-card__text  { font-size: .95rem; color: var(--mid); line-height: 1.75; }
 
 @media (max-width: 900px) { .diff-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .diff-grid { grid-template-columns: 1fr; } }
@@ -841,9 +842,9 @@ h6, .h6 {
 .belief-list li {
   padding:      18px 28px;
   border-bottom: 1px solid rgba(166,146,100,.15);
-  font-size:    .96rem;
+  font-size:    1rem;
   color:        var(--dark);
-  line-height:  1.7;
+  line-height:  1.75;
   display:      flex;
   align-items:  flex-start;
   gap:          14px;
@@ -950,9 +951,9 @@ h6, .h6 {
   display:     flex;
   gap:         14px;
   align-items: flex-start;
-  font-size:   .96rem;
+  font-size:   1rem;
   color:       var(--dark);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .check-list li::before {
@@ -985,9 +986,9 @@ h6, .h6 {
   display:       flex;
   gap:           16px;
   align-items:   flex-start;
-  font-size:     .96rem;
+  font-size:     1rem;
   color:         var(--dark);
-  line-height:   1.7;
+  line-height:   1.75;
   padding:       14px 20px;
   background:    var(--cream);
   border-radius: var(--radius);
@@ -1077,7 +1078,7 @@ h6, .h6 {
 
 .mvv-card { background: var(--cream); padding: 32px 28px; }
 .mvv-card__label { font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
-.mvv-card__text  { font-size: .95rem; color: var(--dark); line-height: 1.8; }
+.mvv-card__text  { font-size: 1rem; color: var(--dark); line-height: 1.8; }
 
 @media (max-width: 900px) { .mvv-grid { grid-template-columns: 1fr; } }
 
@@ -1115,7 +1116,7 @@ h6, .h6 {
 .director-card__body        { padding: 24px 28px; }
 .director-card__name        { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 4px; }
 .director-card__title-text  { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-.director-card__bio         { font-size: .92rem; color: var(--mid); line-height: 1.75; }
+.director-card__bio         { font-size: 1rem; color: var(--mid); line-height: 1.78; }
 .director-card__placeholder { font-size: .82rem; color: rgba(166,146,100,.5); font-style: italic; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(166,146,100,.25); }
 
 @media (max-width: 900px) { .director-cards { grid-template-columns: 1fr; } }
@@ -1139,7 +1140,7 @@ h6, .h6 {
 }
 
 .scholarship-card__name { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--black); margin-bottom: 8px; }
-.scholarship-card__desc { font-size: .9rem; color: var(--mid); line-height: 1.7; }
+.scholarship-card__desc { font-size: .95rem; color: var(--mid); line-height: 1.75; }
 
 @media (max-width: 900px) { .scholarship-cards { grid-template-columns: 1fr; } }
 
