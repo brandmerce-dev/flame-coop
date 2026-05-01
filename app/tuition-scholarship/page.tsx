@@ -73,7 +73,7 @@ export default async function TuitionPage() {
       {/* TUITION TABLE */}
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '600px', marginBottom: '32px' }}>
+          <div className="reveal" style={{ maxWidth: '720px', marginBottom: '32px' }}>
             <span className="eyebrow">Fee &amp; Tuition Overview</span>
             <h2 style={{ marginBottom: '12px' }}>{tableIntroHeading}</h2>
             <p>{tableIntroBody}</p>

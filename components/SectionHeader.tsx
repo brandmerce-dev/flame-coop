@@ -14,7 +14,7 @@ export default function SectionHeader({
   lead,
   align    = 'left',
   headingAs: Tag = 'h2',
-  maxWidth = '560px',
+  maxWidth = '680px',
   style,
 }: SectionHeaderProps) {
   const centered = align === 'center';

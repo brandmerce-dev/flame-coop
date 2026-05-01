@@ -127,7 +127,7 @@ export default async function HomePage() {
       {/* WHO WE ARE */}
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
-          <div className="reveal" style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 48px' }}>
+          <div className="reveal" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 48px' }}>
             <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>{whoEyebrow}</span>
             <h2 style={{ marginBottom: '20px' }}>{whoHeading}</h2>
             <p className="lead">{whoLead}</p>
@@ -161,7 +161,7 @@ export default async function HomePage() {
       {/* WHY CHOOSE US */}
       <section className="section--dark">
         <div className="container">
-          <div style={{ maxWidth: '520px', marginBottom: '48px' }} className="reveal">
+          <div style={{ maxWidth: '640px', marginBottom: '48px' }} className="reveal">
             <span className="eyebrow">{whyEyebrow}</span>
             <h2 style={{ marginBottom: '16px' }}>{whyHeading}</h2>
             <p style={{ color: 'rgba(255,255,255,.6)', fontSize: '1rem' }}>{whySubhead}</p>
@@ -181,7 +181,7 @@ export default async function HomePage() {
       {/* PROGRAM PATH PREVIEW */}
       <section className="section--cream">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '600px', marginBottom: '8px' }}>
+          <div className="reveal" style={{ maxWidth: '720px', marginBottom: '8px' }}>
             <span className="eyebrow">{programsEyebrow}</span>
             <h2 style={{ marginBottom: '16px' }}>{programsHeading}</h2>
             <p className="lead">{programsSubhead}</p>

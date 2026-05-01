@@ -84,7 +84,7 @@ export default async function ProgramsPage() {
       {/* ELEMENTARY PROGRAMS */}
       <section className="section--cream">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '560px', marginBottom: '32px' }}>
+          <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
             <span className="eyebrow">Elementary Programs</span>
             <h2 style={{ marginBottom: '12px' }}>The First Three Levels — Where the Fire Starts.</h2>
             <p>Ages 5–12. Play-based foundations, Old Testament roots, and the growing realization that the same God who made the universe made them.</p>
@@ -110,7 +110,7 @@ export default async function ProgramsPage() {
       {/* DISCIPLESHIP PROGRAMS */}
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '620px', marginBottom: '32px' }}>
+          <div className="reveal" style={{ maxWidth: '740px', marginBottom: '32px' }}>
             <span className="eyebrow">Discipleship Programs</span>
             <h2 style={{ marginBottom: '12px' }}>The Next Three Levels — Where Faith Gets Tested and Owned.</h2>
             <p>Ages 12 and up. This is where your teenager stops inheriting their faith and starts owning it.</p>
@@ -136,7 +136,7 @@ export default async function ProgramsPage() {
       {/* ACADEMIC APPROACH */}
       <section className="section--cream2">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '560px', marginBottom: '32px' }}>
+          <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
             <span className="eyebrow">Academic Approach</span>
             <h2 style={{ marginBottom: '12px' }}>Strong Academics, Built on a Biblical Worldview.</h2>
             <p>Academics matter at The Flame because children are called to think, communicate, create, solve, discern, and lead.</p>

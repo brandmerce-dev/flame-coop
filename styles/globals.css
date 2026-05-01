@@ -89,9 +89,9 @@
   --transition-slow:   all .45s cubic-bezier(.4,0,.2,1);
 
   /* Layout */
-  --max-width:         1140px;
-  --max-width-narrow:  720px;
-  --max-width-wide:    1280px;
+  --max-width:         1200px;
+  --max-width-narrow:  800px;
+  --max-width-wide:    1400px;
   --nav-height:        72px;
   --gutter:            32px;
   --gutter-mobile:     20px;

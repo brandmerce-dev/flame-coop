@@ -95,7 +95,7 @@ export default async function AboutPage() {
       {/* MISSION · VISION · MODEL */}
       <section className="section--cream">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '560px', marginBottom: '32px' }}>
+          <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
             <span className="eyebrow">Mission · Vision · Model</span>
             <h2>We Know Exactly Why We&apos;re Here.</h2>
           </div>
@@ -119,7 +119,7 @@ export default async function AboutPage() {
       {/* WHAT MAKES US DIFFERENT */}
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '560px', marginBottom: '40px' }}>
+          <div className="reveal" style={{ maxWidth: '680px', marginBottom: '40px' }}>
             <span className="eyebrow">What Makes Us Different</span>
             <h2 style={{ marginBottom: '16px' }}>An Education Built Around Your Child — Not Just a Calendar.</h2>
             <p>Most schools sort children by age and move them forward because the year ended. We don&apos;t.</p>
@@ -138,7 +138,7 @@ export default async function AboutPage() {
       {/* MEET THE DIRECTORS */}
       <section className="section--cream2">
         <div className="container">
-          <div className="reveal" style={{ maxWidth: '520px', marginBottom: '40px' }}>
+          <div className="reveal" style={{ maxWidth: '640px', marginBottom: '40px' }}>
             <span className="eyebrow">Meet the Directors</span>
             <h2>A Heart for Families, Faith, and the Next Generation.</h2>
           </div>
