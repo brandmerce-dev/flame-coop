@@ -28,7 +28,7 @@ export async function getAbout() {
   return client.fetch(groq`*[_type == "about" && _id == "about"][0] {
     seoTitle, seoDescription, ogImage ${imageFields},
     heroHeadline, heroLead,
-    storyBody,
+    "storyBody": pt::text(storyBody),
     missionText, visionText, modelText,
     directors[] {
       name, titleText, bio, bio2, headshotAlt,
@@ -43,7 +43,7 @@ export async function getBeliefs() {
     seoTitle, seoDescription, ogImage ${imageFields},
     heroHeadline, heroLead,
     statementTitle, statementIntro, beliefsList,
-    faithClassroomTitle, faithClassroomBody,
+    faithClassroomTitle, "faithClassroomBody": pt::text(faithClassroomBody),
     formationTitle, formationQuote, formationBody,
   }`)
 }
@@ -55,7 +55,7 @@ export async function getAdmissions() {
     heroHeadline, heroLead,
     fitItems,
     enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage,
-    afterEnrollBody,
+    "afterEnrollBody": pt::text(afterEnrollBody),
   }`)
 }
 
@@ -75,7 +75,8 @@ export async function getTuition() {
 // ── PROGRAMS ──────────────────────────────────────────────────────────────────
 export async function getPrograms() {
   return client.fetch(groq`*[_type == "program"] | order(displayOrder asc) {
-    _id, name, slug, level, ages, themeLine, badgeLabel, variant, displayOrder, description,
+    _id, name, slug, level, ages, themeLine, badgeLabel, variant, displayOrder,
+    "description": pt::text(description),
   }`)
 }
 
