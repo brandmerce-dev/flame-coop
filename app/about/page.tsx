@@ -7,12 +7,12 @@ import { getAbout } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 
 const defaultDiffCards = [
-  { title: 'Developmental Placement',              text: 'Children are assessed and placed where they are developmentally ready — not sorted by birthday.' },
-  { title: 'Mastery-Based Progress',               text: 'Each level runs a two-year cycled curriculum. Students move forward on solid ground, not because the calendar flipped.' },
-  { title: 'Biblical Worldview Through Everything',text: "Faith isn't a class on the schedule. It's the lens for every subject, every conversation, every day." },
-  { title: 'Experiential Learning',                text: 'Students build, draw, discuss, and create — reaching visual, auditory, tactile, and kinesthetic learners in every unit.' },
-  { title: 'Differentiated Core Skills',           text: "Math and reading are taught with attention to how each child actually learns — because mastery looks different for every kid." },
-  { title: 'Spiritual Formation at the Core',      text: "Every level is designed to help children know God more deeply and understand who they are in Christ — not as a bonus, but as the foundation." },
+  { title: 'Developmental Placement',               text: 'Children are assessed and placed where they are developmentally ready — not sorted by birthday.' },
+  { title: 'Mastery-Based Progress',                text: 'Each level runs a two-year cycled curriculum. Students move forward on solid ground, not because the calendar flipped.' },
+  { title: 'Biblical Worldview Through Everything', text: "Faith isn't a class on the schedule. It's the lens for every subject, every conversation, every day." },
+  { title: 'Experiential Learning',                 text: 'Students build, draw, discuss, and create — reaching visual, auditory, tactile, and kinesthetic learners in every unit.' },
+  { title: 'Differentiated Core Skills',            text: "Math and reading are taught with attention to how each child actually learns — because mastery looks different for every kid." },
+  { title: 'Spiritual Formation at the Core',       text: "Every level is designed to help children know God more deeply and understand who they are in Christ — not as a bonus, but as the foundation." },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,11 +31,33 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPage() {
   const cms = await getAbout();
 
+  // ── Hero ──────────────────────────────────────────────────────────────────
+  const heroEyebrow  = cms?.heroEyebrow  ?? 'About The Flame';
   const heroHeadline = cms?.heroHeadline ?? 'Built by Families. Fueled by Faith. On Fire for Jesus.';
   const heroLead     = cms?.heroLead     ?? 'The Flame exists because homeschool families believed children deserved more than a good education — they deserved a community that would call out the fire God placed inside them.';
-  const missionText  = cms?.missionText  ?? "To provide a Christ-centered community committed to stoking the fire of the Holy Spirit within the next generation through real-life educational encounters with God’s glory and love.";
-  const visionText   = cms?.visionText   ?? 'To raise up Kingdom leaders who are on fire for Jesus — children who know who they are, can defend what they believe, and are equipped to impact the world with His love.';
-  const modelText    = cms?.modelText    ?? 'The Flame is a cooperative — families doing life and learning together. Parents remain the primary educators. Our tutors and community provide structure, enrichment, discipleship, and the friendships that make homeschooling feel less lonely and a lot more alive.';
+
+  // ── Our Story ─────────────────────────────────────────────────────────────
+  const storyEyebrow   = cms?.storyEyebrow   ?? 'Our Story';
+  const storyHeading   = cms?.storyHeading   ?? 'How The Flame Was Born.';
+  const storyImageSrc  = cms?.storyImage ? urlFor(cms.storyImage).width(800).url() : undefined;
+  const storyImageAlt  = cms?.storyImageAlt  ?? 'The Flame community';
+
+  // ── Mission / Vision / Model ──────────────────────────────────────────────
+  const mvvEyebrow  = cms?.mvvEyebrow  ?? 'Mission · Vision · Model';
+  const mvvHeading  = cms?.mvvHeading  ?? "We Know Exactly Why We're Here.";
+  const missionText = cms?.missionText ?? "To provide a Christ-centered community committed to stoking the fire of the Holy Spirit within the next generation through real-life educational encounters with God's glory and love.";
+  const visionText  = cms?.visionText  ?? 'To raise up Kingdom leaders who are on fire for Jesus — children who know who they are, can defend what they believe, and are equipped to impact the world with His love.';
+  const modelText   = cms?.modelText   ?? 'The Flame is a cooperative — families doing life and learning together. Parents remain the primary educators. Our tutors and community provide structure, enrichment, discipleship, and the friendships that make homeschooling feel less lonely and a lot more alive.';
+
+  // ── What Makes Us Different ───────────────────────────────────────────────
+  const diffEyebrow = cms?.diffEyebrow ?? 'What Makes Us Different';
+  const diffHeading = cms?.diffHeading ?? 'An Education Built Around Your Child — Not Just a Calendar.';
+  const diffIntro   = cms?.diffIntro   ?? "Most schools sort children by age and move them forward because the year ended. We don't.";
+  const diffCards   = cms?.diffCards?.length ? cms.diffCards : defaultDiffCards;
+
+  // ── Directors ─────────────────────────────────────────────────────────────
+  const directorsEyebrow = cms?.directorsEyebrow ?? 'Meet the Directors';
+  const directorsHeading = cms?.directorsHeading ?? 'A Heart for Families, Faith, and the Next Generation.';
 
   const directors = cms?.directors ?? [
     {
@@ -58,7 +80,7 @@ export default async function AboutPage() {
       <section style={{ padding: '80px 0 64px', background: 'var(--cream2)' }}>
         <div className="container--narrow" style={{ textAlign: 'center' }}>
           <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>
-            About The Flame
+            {heroEyebrow}
           </span>
           <h1 style={{ marginBottom: '20px' }}>{heroHeadline}</h1>
           <p className="lead">{heroLead}</p>
@@ -70,8 +92,8 @@ export default async function AboutPage() {
         <div className="container">
           <div className="split split--60 reveal">
             <div className="split__body">
-              <span className="eyebrow">Our Story</span>
-              <h2 style={{ marginBottom: '20px' }}>How The Flame Was Born.</h2>
+              <span className="eyebrow">{storyEyebrow}</span>
+              <h2 style={{ marginBottom: '20px' }}>{storyHeading}</h2>
               {cms?.storyBody ? (
                 <p>{cms.storyBody}</p>
               ) : (
@@ -86,7 +108,17 @@ export default async function AboutPage() {
               )}
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Real Flame community candid" aspectRatio="tall" />
+              {storyImageSrc ? (
+                <Image
+                  src={storyImageSrc}
+                  alt={storyImageAlt}
+                  width={800}
+                  height={1067}
+                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)' }}
+                />
+              ) : (
+                <ImagePlaceholder label="Photo: Real Flame community candid" aspectRatio="tall" />
+              )}
             </div>
           </div>
         </div>
@@ -96,8 +128,8 @@ export default async function AboutPage() {
       <section className="section--cream">
         <div className="container">
           <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
-            <span className="eyebrow">Mission · Vision · Model</span>
-            <h2>We Know Exactly Why We&apos;re Here.</h2>
+            <span className="eyebrow">{mvvEyebrow}</span>
+            <h2>{mvvHeading}</h2>
           </div>
           <div className="mvv-grid reveal">
             <div className="mvv-card">
@@ -120,12 +152,12 @@ export default async function AboutPage() {
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
           <div className="reveal" style={{ maxWidth: '680px', marginBottom: '40px' }}>
-            <span className="eyebrow">What Makes Us Different</span>
-            <h2 style={{ marginBottom: '16px' }}>An Education Built Around Your Child — Not Just a Calendar.</h2>
-            <p>Most schools sort children by age and move them forward because the year ended. We don&apos;t.</p>
+            <span className="eyebrow">{diffEyebrow}</span>
+            <h2 style={{ marginBottom: '16px' }}>{diffHeading}</h2>
+            <p>{diffIntro}</p>
           </div>
           <div className="diff-grid reveal">
-            {defaultDiffCards.map((card, i) => (
+            {diffCards.map((card: { title: string; text: string }, i: number) => (
               <div key={i} className="diff-card">
                 <div className="diff-card__title">{card.title}</div>
                 <p className="diff-card__text">{card.text}</p>
@@ -139,8 +171,8 @@ export default async function AboutPage() {
       <section className="section--cream2">
         <div className="container">
           <div className="reveal" style={{ maxWidth: '640px', marginBottom: '40px' }}>
-            <span className="eyebrow">Meet the Directors</span>
-            <h2>A Heart for Families, Faith, and the Next Generation.</h2>
+            <span className="eyebrow">{directorsEyebrow}</span>
+            <h2>{directorsHeading}</h2>
           </div>
           <div className="director-cards reveal">
             {directors.map((d: { name: string; titleText: string; headshot: unknown; headshotAlt: string; bio?: string; bio2?: string }, i: number) => (

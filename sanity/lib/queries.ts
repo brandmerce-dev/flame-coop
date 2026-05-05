@@ -27,9 +27,16 @@ export async function getHomepage() {
 export async function getAbout() {
   return client.fetch(groq`*[_type == "about" && _id == "about"][0] {
     seoTitle, seoDescription, ogImage ${imageFields},
-    heroHeadline, heroLead,
+    heroEyebrow, heroHeadline, heroLead,
+    storyEyebrow, storyHeading,
     "storyBody": pt::text(storyBody),
+    storyImageAlt,
+    storyImage ${imageFields},
+    mvvEyebrow, mvvHeading,
     missionText, visionText, modelText,
+    diffEyebrow, diffHeading, diffIntro,
+    diffCards[] { title, text },
+    directorsEyebrow, directorsHeading,
     directors[] {
       name, titleText, bio, bio2, headshotAlt,
       headshot ${imageFields},
