@@ -10,6 +10,7 @@ export const admissions = defineType({
     { name: 'fit',        title: 'Fit Checklist' },
     { name: 'enrollment', title: 'Enrollment Status' },
     { name: 'after',      title: 'After You Enroll' },
+    { name: 'request',    title: 'Request Information' },
   ],
   fields: [
     defineField({ name: 'seoTitle',       title: 'SEO Title',       type: 'string', group: 'seo' }),
@@ -71,5 +72,13 @@ export const admissions = defineType({
     }),
     defineField({ name: 'afterEnrollImage',    title: 'Image (After You Enroll — photo beside text)',                   type: 'image', options: { hotspot: true }, group: 'after' }),
     defineField({ name: 'afterEnrollImageAlt', title: 'Image Alt Text (After You Enroll — accessibility description)', type: 'string', group: 'after' }),
+
+    defineField({ name: 'requestInfoEyebrow', title: 'Eyebrow (Request Information — small label above heading)',      type: 'string', group: 'request' }),
+    defineField({ name: 'requestInfoHeading', title: 'Heading (Request Information — main section title)',             type: 'string', group: 'request' }),
+    defineField({ name: 'requestInfoBody1',   title: 'Body Paragraph 1 (Request Information — primary description)',  type: 'text', rows: 3, group: 'request' }),
+    defineField({ name: 'requestInfoBody2',   title: 'Body Paragraph 2 (Request Information — platform/form note)',   type: 'text', rows: 3, group: 'request' }),
+    defineField({ name: 'requestInfoBtnLabel', title: 'Button Label (Request Information — CTA button text)',         type: 'string', group: 'request' }),
+    defineField({ name: 'requestInfoImage',    title: 'Image (Request Information — photo on the right side)',        type: 'image', options: { hotspot: true }, group: 'request' }),
+    defineField({ name: 'requestInfoImageAlt', title: 'Image Alt Text (Request Information — accessibility description)', type: 'string', group: 'request' }),
   ],
 })

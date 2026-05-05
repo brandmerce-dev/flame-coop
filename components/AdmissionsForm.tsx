@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { openRequestInfoModal } from '@/components/RequestInfoModal';
 
@@ -7,6 +8,13 @@ interface AdmissionsFormProps {
   enrollmentOpen:          boolean;
   enrollmentOpenMessage:   string;
   enrollmentClosedMessage: string;
+  requestInfoEyebrow:   string;
+  requestInfoHeading:   string;
+  requestInfoBody1:     string;
+  requestInfoBody2:     string;
+  requestInfoBtnLabel:  string;
+  requestInfoImageSrc?: string;
+  requestInfoImageAlt:  string;
 }
 
 const admissionSteps = [
@@ -19,7 +27,11 @@ const admissionSteps = [
   { num: 7, title: 'Background Check + Parent Portal Access', body: "After the handbook is submitted, the background check fee is collected per parent. Then your family receives full access to the Parent Portal — schedules, curriculum, events, payments, and everything you need to start the year well.", fee: 'Background fee: $20 per parent' },
 ];
 
-export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage }: AdmissionsFormProps) {
+export default function AdmissionsForm({
+  enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage,
+  requestInfoEyebrow, requestInfoHeading, requestInfoBody1, requestInfoBody2,
+  requestInfoBtnLabel, requestInfoImageSrc, requestInfoImageAlt,
+}: AdmissionsFormProps) {
 
   return (
     <>
@@ -58,23 +70,25 @@ export default function AdmissionsForm({ enrollmentOpen, enrollmentOpenMessage, 
                   {enrollmentOpen ? enrollmentOpenMessage : enrollmentClosedMessage}
                 </p>
               </div>
-              <span className="eyebrow">Request Information</span>
-              <h2 style={{ marginBottom: '20px' }}>Have Questions? We&apos;d Love to Meet Your Family.</h2>
-              <p style={{ marginBottom: '12px' }}>
-                Tell us a little about your family and what you&apos;re looking for. Someone from our team will follow up with next steps and upcoming information meeting details.
-              </p>
-              <p style={{ marginBottom: '32px', color: 'var(--mid)' }}>
-                Our admissions form is powered by Eduweby, the platform we use to manage enrollment. It takes about two minutes to complete.
-              </p>
+              <span className="eyebrow">{requestInfoEyebrow}</span>
+              <h2 style={{ marginBottom: '20px' }}>{requestInfoHeading}</h2>
+              <p style={{ marginBottom: '12px' }}>{requestInfoBody1}</p>
+              <p style={{ marginBottom: '32px', color: 'var(--mid)' }}>{requestInfoBody2}</p>
               <button
                 onClick={openRequestInfoModal}
                 className="btn btn--primary"
               >
-                Begin Your Inquiry
+                {requestInfoBtnLabel}
               </button>
             </div>
             <div className="split__media reveal reveal-delay-1" style={{ paddingTop: '48px' }}>
-              <ImagePlaceholder label="Photo: Welcoming community atmosphere" aspectRatio="tall" />
+              {requestInfoImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={requestInfoImageSrc} alt={requestInfoImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Welcoming community atmosphere" aspectRatio="tall" />
+              )}
             </div>
           </div>
         </div>

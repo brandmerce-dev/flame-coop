@@ -71,6 +71,8 @@ export async function getAdmissions() {
     enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage,
     afterEnrollHeading, afterEnrollBody[] { ..., children[] { ... } },
     afterEnrollImage ${imageFields}, afterEnrollImageAlt,
+    requestInfoEyebrow, requestInfoHeading, requestInfoBody1, requestInfoBody2, requestInfoBtnLabel,
+    requestInfoImage ${imageFields}, requestInfoImageAlt,
   }`)
 }
 
