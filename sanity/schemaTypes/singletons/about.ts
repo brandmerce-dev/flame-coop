@@ -32,6 +32,21 @@ export const about = defineType({
     }),
     defineField({ name: 'storyImage',    title: 'Image (Our Story — photo beside text)',  type: 'image', options: { hotspot: true }, group: 'story' }),
     defineField({ name: 'storyImageAlt', title: 'Image Alt Text (Our Story — accessibility description)', type: 'string', group: 'story' }),
+    defineField({
+      name: 'storyImageAspect',
+      title: 'Image Shape (Our Story — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string',
+      group: 'story',
+      options: {
+        list: [
+          { title: 'Tall (3:4) — recommended, matches default layout', value: 'tall' },
+          { title: 'Square (1:1)',                                    value: 'square' },
+          { title: 'Wide (16:10)',                                    value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'tall',
+    }),
 
     // ── MISSION / VISION / MODEL ──────────────────────────────────────────────
     defineField({ name: 'mvvEyebrow', title: 'Eyebrow (Mission/Vision/Model — small label above heading)', type: 'string', group: 'mvv' }),

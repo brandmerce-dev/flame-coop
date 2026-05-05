@@ -39,8 +39,22 @@ export default async function AboutPage() {
   // ── Our Story ─────────────────────────────────────────────────────────────
   const storyEyebrow   = cms?.storyEyebrow   ?? 'Our Story';
   const storyHeading   = cms?.storyHeading   ?? 'How The Flame Was Born.';
-  const storyImageSrc  = cms?.storyImage ? urlFor(cms.storyImage).width(800).url() : undefined;
+  const storyImageSrc  = cms?.storyImage ? urlFor(cms.storyImage).width(1200).url() : undefined;
   const storyImageAlt  = cms?.storyImageAlt  ?? 'The Flame community';
+
+  // Box proportions — defaults to "tall" so it matches the original placeholder framing.
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+  const storyImageAspect = aspectMap[cms?.storyImageAspect as string] ?? '3 / 4';
+
+  // Convert CMS portable text blocks to plain paragraphs so each block renders as its own <p>.
+  // (Each block has children: [{ text: '...' }, ...]; we join the text spans per block.)
+  type PtBlock = { _type?: string; children?: { text?: string }[] };
+  const storyParagraphs: string[] | null = Array.isArray(cms?.storyBody)
+    ? (cms!.storyBody as PtBlock[])
+        .filter((b) => b?._type === 'block')
+        .map((b) => (b.children ?? []).map((c) => c?.text ?? '').join(''))
+        .filter((s) => s.trim().length > 0)
+    : null;
 
   // ── Mission / Vision / Model ──────────────────────────────────────────────
   const mvvEyebrow  = cms?.mvvEyebrow  ?? 'Mission · Vision · Model';
@@ -94,8 +108,8 @@ export default async function AboutPage() {
             <div className="split__body">
               <span className="eyebrow">{storyEyebrow}</span>
               <h2 style={{ marginBottom: '20px' }}>{storyHeading}</h2>
-              {cms?.storyBody ? (
-                <p>{cms.storyBody}</p>
+              {storyParagraphs && storyParagraphs.length > 0 ? (
+                storyParagraphs.map((p, i) => <p key={i}>{p}</p>)
               ) : (
                 <>
                   <p>The Flame started the way most Spirit-led things do — not with a business plan, but with a burden.</p>
@@ -109,15 +123,28 @@ export default async function AboutPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {storyImageSrc ? (
-                <Image
-                  src={storyImageSrc}
-                  alt={storyImageAlt}
-                  width={800}
-                  height={1067}
-                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)' }}
-                />
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    aspectRatio: storyImageAspect,
+                    borderRadius: 'var(--radius-lg)',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Image
+                    src={storyImageSrc}
+                    alt={storyImageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
               ) : (
-                <ImagePlaceholder label="Photo: Real Flame community candid" aspectRatio="tall" />
+                <ImagePlaceholder
+                  label="Photo: Real Flame community candid"
+                  aspectRatio={(cms?.storyImageAspect as 'tall' | 'square' | 'wide') ?? 'tall'}
+                />
               )}
             </div>
           </div>
