@@ -53,7 +53,9 @@ export async function getBeliefs() {
     heroStyle, heroEyebrow, heroHeadline, heroLead,
     heroImage ${imageFields}, heroImageAlt,
     statementTitle, statementIntro, beliefsList,
-    faithClassroomTitle, "faithClassroomBody": pt::text(faithClassroomBody),
+    statementImage ${imageFields}, statementImageAlt,
+    faithClassroomTitle, faithClassroomBody[] { ..., children[] { ... } },
+    faithClassroomImage ${imageFields}, faithClassroomImageAlt,
     formationTitle, formationQuote, formationBody,
   }`)
 }
@@ -64,9 +66,11 @@ export async function getAdmissions() {
     seoTitle, seoDescription, ogImage ${imageFields},
     heroStyle, heroEyebrow, heroHeadline, heroLead,
     heroImage ${imageFields}, heroImageAlt,
-    fitItems,
+    beforeApplyHeading, beforeApplyIntro, fitItems,
+    fitImage ${imageFields}, fitImageAlt,
     enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage,
-    "afterEnrollBody": pt::text(afterEnrollBody),
+    afterEnrollHeading, afterEnrollBody[] { ..., children[] { ... } },
+    afterEnrollImage ${imageFields}, afterEnrollImageAlt,
   }`)
 }
 
@@ -81,6 +85,8 @@ export async function getTuition() {
     callouts[] { program, total, note },
     scholarshipsHeading, scholarshipsIntro, scholarshipsBody,
     scholarships[] { name, desc },
+    scholarshipsImage ${imageFields}, scholarshipsImageAlt,
+    ctaEyebrow, ctaHeading, ctaBody1, ctaBody2,
   }`)
 }
 

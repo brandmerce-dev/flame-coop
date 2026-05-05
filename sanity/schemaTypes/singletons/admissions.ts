@@ -47,22 +47,29 @@ export const admissions = defineType({
       hidden: ({ parent }) => parent?.heroStyle !== 'image',
     }),
 
+    defineField({ name: 'beforeApplyHeading', title: 'Heading (Before You Apply — section title)',                        type: 'string', group: 'fit' }),
+    defineField({ name: 'beforeApplyIntro',   title: 'Intro (Before You Apply — paragraph above the checklist)',         type: 'text', rows: 3, group: 'fit' }),
     defineField({
-      name: 'fitItems', title: 'Fit Checklist Items', type: 'array', group: 'fit',
+      name: 'fitItems', title: 'Checklist Items (Before You Apply — one item per line)', type: 'array', group: 'fit',
       of: [{ type: 'string' }],
     }),
+    defineField({ name: 'fitImage',    title: 'Image (Before You Apply — photo beside the checklist)',               type: 'image', options: { hotspot: true }, group: 'fit' }),
+    defineField({ name: 'fitImageAlt', title: 'Image Alt Text (Before You Apply — accessibility description)',       type: 'string', group: 'fit' }),
 
     defineField({
-      name: 'enrollmentOpen', title: 'Enrollment is Currently OPEN',
+      name: 'enrollmentOpen', title: 'Enrollment is Currently OPEN (Enrollment Status — toggle on/off)',
       type: 'boolean', initialValue: true, group: 'enrollment',
       description: 'Toggle this to show the open or closed message on the page.',
     }),
-    defineField({ name: 'enrollmentOpenMessage',   title: 'Open Message',   type: 'text', rows: 3, group: 'enrollment' }),
-    defineField({ name: 'enrollmentClosedMessage', title: 'Closed Message', type: 'text', rows: 3, group: 'enrollment' }),
+    defineField({ name: 'enrollmentOpenMessage',   title: 'Open Message (Enrollment Status — shown when enrollment is open)',   type: 'text', rows: 3, group: 'enrollment' }),
+    defineField({ name: 'enrollmentClosedMessage', title: 'Closed Message (Enrollment Status — shown when enrollment is closed)', type: 'text', rows: 3, group: 'enrollment' }),
 
+    defineField({ name: 'afterEnrollHeading', title: 'Heading (After You Enroll — section title)',                     type: 'string', group: 'after' }),
     defineField({
-      name: 'afterEnrollBody', title: 'After You Enroll Body', type: 'array', group: 'after',
+      name: 'afterEnrollBody', title: 'Body (After You Enroll — rich text paragraphs)', type: 'array', group: 'after',
       of: [{ type: 'block' }],
     }),
+    defineField({ name: 'afterEnrollImage',    title: 'Image (After You Enroll — photo beside text)',                   type: 'image', options: { hotspot: true }, group: 'after' }),
+    defineField({ name: 'afterEnrollImageAlt', title: 'Image Alt Text (After You Enroll — accessibility description)', type: 'string', group: 'after' }),
   ],
 })

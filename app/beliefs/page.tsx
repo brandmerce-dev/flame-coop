@@ -1,6 +1,7 @@
 export const revalidate = 0; // always fetch fresh from Sanity
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
@@ -46,10 +47,22 @@ export default async function BeliefsPage() {
   const statementIntro     = cms?.statementIntro     ?? 'Not a checklist. Living convictions that shape how we teach, disciple, correct, and love the families in our community.';
   const beliefsList        = cms?.beliefsList?.length ? cms.beliefsList : defaultBeliefs;
   const faithClassroomTitle = cms?.faithClassroomTitle ?? 'What We Believe Shapes What We Teach.';
-  const faithClassroomBody  = cms?.faithClassroomBody  ?? null;
   const formationTitle     = cms?.formationTitle     ?? 'We Are Forming More Than Students.';
   const formationQuote     = cms?.formationQuote     ?? 'The world will ask your children hard questions. We want them to be ready.';
   const formationBody      = cms?.formationBody      ?? 'Who are you? What do you believe? What will you do when your faith is challenged? At The Flame, we want children to know Scripture, hear God\'s voice, pray for others, serve with humility, and walk with the quiet confidence of someone who knows exactly who they are in Christ. Not just academically prepared. Formed.';
+
+  const statementImageSrc  = cms?.statementImage ? urlFor(cms.statementImage).width(1200).url() : undefined;
+  const statementImageAlt2 = cms?.statementImageAlt ?? 'Students in prayer or quiet Bible moment';
+  const faithImageSrc      = cms?.faithClassroomImage ? urlFor(cms.faithClassroomImage).width(1200).url() : undefined;
+  const faithImageAlt      = cms?.faithClassroomImageAlt ?? 'Student in small group discussion';
+
+  type PtBlock = { _type?: string; children?: { text?: string }[] };
+  const faithParagraphs: string[] | null = Array.isArray(cms?.faithClassroomBody)
+    ? (cms!.faithClassroomBody as PtBlock[])
+        .filter((b) => b?._type === 'block')
+        .map((b) => (b.children ?? []).map((c) => c?.text ?? '').join(''))
+        .filter((s) => s.trim().length > 0)
+    : null;
 
   return (
     <>
@@ -83,7 +96,13 @@ export default async function BeliefsPage() {
               </ul>
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Students in prayer or quiet Bible moment" aspectRatio="tall" />
+              {statementImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={statementImageSrc} alt={statementImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Students in prayer or quiet Bible moment" aspectRatio="tall" />
+              )}
             </div>
           </div>
         </div>
@@ -96,8 +115,10 @@ export default async function BeliefsPage() {
             <div className="split__body">
               <span className="eyebrow">Faith in the Classroom</span>
               <h2 style={{ marginBottom: '20px' }}>{faithClassroomTitle}</h2>
-              {faithClassroomBody ? (
-                <p>{faithClassroomBody}</p>
+              {faithParagraphs ? (
+                faithParagraphs.map((p, i) => (
+                  <p key={i} style={i > 0 ? { marginTop: '16px' } : undefined}>{p}</p>
+                ))
               ) : (
                 <>
                   <p>
@@ -110,7 +131,13 @@ export default async function BeliefsPage() {
               )}
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Student in small group discussion" aspectRatio="wide" />
+              {faithImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={faithImageSrc} alt={faithImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Student in small group discussion" aspectRatio="wide" />
+              )}
             </div>
           </div>
         </div>

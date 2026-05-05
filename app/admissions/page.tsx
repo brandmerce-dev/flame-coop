@@ -1,6 +1,7 @@
 export const revalidate = 0; // always fetch fresh from Sanity
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import AdmissionsForm from '@/components/AdmissionsForm';
 import Hero from '@/components/Hero';
@@ -42,7 +43,22 @@ export default async function AdmissionsPage() {
   const enrollmentOpen           = cms?.enrollmentOpen           ?? true;
   const enrollmentOpenMessage    = cms?.enrollmentOpenMessage    ?? 'Enrollment for the upcoming school year is open. Complete the form to begin the admissions process and receive information about upcoming information meetings.';
   const enrollmentClosedMessage  = cms?.enrollmentClosedMessage  ?? 'Enrollment for the upcoming school year is currently closed. Complete the form to be added to our interest list and we\'ll reach out when enrollment reopens.';
-  const afterEnrollBody          = cms?.afterEnrollBody          ?? null;
+
+  const beforeApplyHeading = cms?.beforeApplyHeading ?? "What You're Saying Yes To.";
+  const beforeApplyIntro   = cms?.beforeApplyIntro   ?? "The Flame is a cooperative — every family who joins is a partner, not just a participant. Before applying, it helps to know what you're stepping into:";
+  const afterEnrollHeading = cms?.afterEnrollHeading ?? "You're Not Just on a Roster. You're Part of the Family.";
+  const fitImageSrc        = cms?.fitImage ? urlFor(cms.fitImage).width(1200).url() : undefined;
+  const fitImageAlt2       = cms?.fitImageAlt ?? 'Welcoming family community moment';
+  const afterEnrollImageSrc = cms?.afterEnrollImage ? urlFor(cms.afterEnrollImage).width(1200).url() : undefined;
+  const afterEnrollImageAlt = cms?.afterEnrollImageAlt ?? 'Parent and child at The Flame';
+
+  type PtBlock = { _type?: string; children?: { text?: string }[] };
+  const afterEnrollParagraphs: string[] | null = Array.isArray(cms?.afterEnrollBody)
+    ? (cms!.afterEnrollBody as PtBlock[])
+        .filter((b) => b?._type === 'block')
+        .map((b) => (b.children ?? []).map((c) => c?.text ?? '').join(''))
+        .filter((s) => s.trim().length > 0)
+    : null;
 
   return (
     <>
@@ -67,10 +83,8 @@ export default async function AdmissionsPage() {
           <div className="split reveal">
             <div className="split__body">
               <span className="eyebrow">Before You Apply</span>
-              <h2 style={{ marginBottom: '20px' }}>What You&apos;re Saying Yes To.</h2>
-              <p style={{ marginBottom: '20px' }}>
-                The Flame is a cooperative — every family who joins is a partner, not just a participant. Before applying, it helps to know what you&apos;re stepping into:
-              </p>
+              <h2 style={{ marginBottom: '20px' }}>{beforeApplyHeading}</h2>
+              <p style={{ marginBottom: '20px' }}>{beforeApplyIntro}</p>
               <ul className="fit-list">
                 {fitItems.map((item: string, i: number) => (
                   <li key={i}>{item}</li>
@@ -78,7 +92,13 @@ export default async function AdmissionsPage() {
               </ul>
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Welcoming family community moment" aspectRatio="tall" />
+              {fitImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={fitImageSrc} alt={fitImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Welcoming family community moment" aspectRatio="tall" />
+              )}
             </div>
           </div>
         </div>
@@ -90,9 +110,11 @@ export default async function AdmissionsPage() {
           <div className="split reveal">
             <div className="split__body">
               <span className="eyebrow">After You Enroll</span>
-              <h2 style={{ marginBottom: '20px' }}>You&apos;re Not Just on a Roster. You&apos;re Part of the Family.</h2>
-              {afterEnrollBody ? (
-                <p>{afterEnrollBody}</p>
+              <h2 style={{ marginBottom: '20px' }}>{afterEnrollHeading}</h2>
+              {afterEnrollParagraphs ? (
+                afterEnrollParagraphs.map((p, i) => (
+                  <p key={i} style={i > 0 ? { marginTop: '12px' } : undefined}>{p}</p>
+                ))
               ) : (
                 <>
                   <p>Once enrolled, your family receives access to the Parent Portal — your hub for schedules, curriculum resources, upcoming events, documents, payments, and onboarding information.</p>
@@ -107,7 +129,13 @@ export default async function AdmissionsPage() {
               </div>
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Parent and child at The Flame" aspectRatio="wide" />
+              {afterEnrollImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={afterEnrollImageSrc} alt={afterEnrollImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Parent and child at The Flame" aspectRatio="wide" />
+              )}
             </div>
           </div>
         </div>

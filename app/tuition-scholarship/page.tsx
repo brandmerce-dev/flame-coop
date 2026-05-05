@@ -1,6 +1,7 @@
 export const revalidate = 0; // always fetch fresh from Sanity
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
@@ -63,6 +64,12 @@ export default async function TuitionPage() {
   const scholarshipsIntro   = cms?.scholarshipsIntro   ?? 'The Flame Christian Cooperative is a direct provider for the Step Up for Students Scholarship in Florida. We believe financial barriers should not stand between a family and the Christ-centered education God is calling them toward.';
   const scholarshipsBody    = cms?.scholarshipsBody    ?? 'Families can pay directly through the Step Up for Students Marketplace portal, or we provide all documentation for a reimbursement request. Your tuition agreement remains in place whether you use scholarship funds or pay out of pocket.';
   const scholarships        = cms?.scholarships?.length ? cms.scholarships : defaultScholarships;
+  const ctaEyebrow          = cms?.ctaEyebrow ?? 'Need Help?';
+  const ctaHeading          = cms?.ctaHeading ?? "You Don't Have to Figure This Out Alone.";
+  const ctaBody1            = cms?.ctaBody1   ?? "If you're looking at this page and feeling unsure about tuition timing, scholarship eligibility, or what applies to your child's program — reach out.";
+  const ctaBody2            = cms?.ctaBody2   ?? 'Our admissions team will walk you through it clearly, without pressure.';
+  const scholarshipsImageSrc  = cms?.scholarshipsImage ? urlFor(cms.scholarshipsImage).width(1200).url() : undefined;
+  const scholarshipsImageAlt2 = cms?.scholarshipsImageAlt ?? 'Student and parent in learning environment';
 
   return (
     <>
@@ -154,7 +161,13 @@ export default async function TuitionPage() {
               <p style={{ marginTop: '24px' }}>{scholarshipsBody}</p>
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Student and parent in learning environment" aspectRatio="wide" />
+              {scholarshipsImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={scholarshipsImageSrc} alt={scholarshipsImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Student and parent in learning environment" aspectRatio="wide" />
+              )}
             </div>
           </div>
         </div>
@@ -163,13 +176,13 @@ export default async function TuitionPage() {
       {/* NEED HELP CTA */}
       <section className="section--dark" style={{ padding: '80px 0' }}>
         <div className="container--narrow" style={{ textAlign: 'center' }}>
-          <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>Need Help?</span>
-          <h2 style={{ marginBottom: '20px' }}>You Don&apos;t Have to Figure This Out Alone.</h2>
+          <span className="eyebrow" style={{ display: 'block', textAlign: 'center', justifyContent: 'center' }}>{ctaEyebrow}</span>
+          <h2 style={{ marginBottom: '20px' }}>{ctaHeading}</h2>
           <p style={{ color: 'rgba(255,255,255,.65)', marginBottom: '8px' }}>
-            If you&apos;re looking at this page and feeling unsure about tuition timing, scholarship eligibility, or what applies to your child&apos;s program — reach out.
+            {ctaBody1}
           </p>
           <p style={{ color: 'rgba(255,255,255,.5)', marginBottom: '36px' }}>
-            Our admissions team will walk you through it clearly, without pressure.
+            {ctaBody2}
           </p>
           <div className="btn-group" style={{ justifyContent: 'center' }}>
             <Link href="/admissions" className="btn btn--primary">Ask About Scholarships</Link>

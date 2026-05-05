@@ -9,6 +9,7 @@ export const tuition = defineType({
     { name: 'hero',         title: 'Hero' },
     { name: 'table',        title: 'Tuition Table' },
     { name: 'scholarships', title: 'Scholarships' },
+    { name: 'cta',          title: 'Need Help? CTA' },
   ],
   fields: [
     defineField({ name: 'seoTitle',       title: 'SEO Title',       type: 'string', group: 'seo' }),
@@ -46,11 +47,11 @@ export const tuition = defineType({
       hidden: ({ parent }) => parent?.heroStyle !== 'image',
     }),
 
-    defineField({ name: 'tableIntroHeading', title: 'Table Section Heading', type: 'string', group: 'table' }),
-    defineField({ name: 'tableIntroBody',    title: 'Table Intro',           type: 'text', rows: 3, group: 'table' }),
-    defineField({ name: 'tableFootnote',     title: 'Table Footnote',        type: 'text', rows: 3, group: 'table' }),
+    defineField({ name: 'tableIntroHeading', title: 'Heading (Fee & Tuition Overview — section title)',              type: 'string', group: 'table' }),
+    defineField({ name: 'tableIntroBody',    title: 'Intro (Fee & Tuition Overview — paragraph below heading)',     type: 'text', rows: 3, group: 'table' }),
+    defineField({ name: 'tableFootnote',     title: 'Footnote (Fee & Tuition Overview — small text below table)',  type: 'text', rows: 3, group: 'table' }),
     defineField({
-      name: 'tuitionRows', title: 'Tuition Table Rows', type: 'array', group: 'table',
+      name: 'tuitionRows', title: 'Table Rows (Fee & Tuition Overview — one row per program)', type: 'array', group: 'table',
       of: [{
         type: 'object',
         fields: [
@@ -67,7 +68,7 @@ export const tuition = defineType({
       }],
     }),
     defineField({
-      name: 'callouts', title: 'Program Callout Cards', type: 'array', group: 'table',
+      name: 'callouts', title: 'Summary Cards (Fee & Tuition Overview — compact totals below table)', type: 'array', group: 'table',
       of: [{
         type: 'object',
         fields: [
@@ -79,11 +80,11 @@ export const tuition = defineType({
       }],
     }),
 
-    defineField({ name: 'scholarshipsHeading', title: 'Scholarships Heading', type: 'string', group: 'scholarships' }),
-    defineField({ name: 'scholarshipsIntro',   title: 'Intro',                type: 'text', rows: 3, group: 'scholarships' }),
-    defineField({ name: 'scholarshipsBody',    title: 'Full Body',            type: 'text', rows: 6, group: 'scholarships' }),
+    defineField({ name: 'scholarshipsHeading', title: 'Heading (Scholarships — section title)',                                         type: 'string', group: 'scholarships' }),
+    defineField({ name: 'scholarshipsIntro',   title: 'Intro Paragraph (Scholarships — first paragraph)',                               type: 'text', rows: 3, group: 'scholarships' }),
+    defineField({ name: 'scholarshipsBody',    title: 'Body Paragraph (Scholarships — second paragraph about payment process)',         type: 'text', rows: 6, group: 'scholarships' }),
     defineField({
-      name: 'scholarships', title: 'Scholarship Programs', type: 'array', group: 'scholarships',
+      name: 'scholarships', title: 'Scholarship Cards (Scholarships — list of scholarship programs)', type: 'array', group: 'scholarships',
       of: [{
         type: 'object',
         fields: [
@@ -93,5 +94,12 @@ export const tuition = defineType({
         preview: { select: { title: 'name' } },
       }],
     }),
+    defineField({ name: 'scholarshipsImage',    title: 'Image (Scholarships — photo beside scholarship content)',      type: 'image', options: { hotspot: true }, group: 'scholarships' }),
+    defineField({ name: 'scholarshipsImageAlt', title: 'Image Alt Text (Scholarships — accessibility description)',   type: 'string', group: 'scholarships' }),
+
+    defineField({ name: 'ctaEyebrow', title: 'Eyebrow (Need Help? CTA — small label above heading)',   type: 'string', group: 'cta' }),
+    defineField({ name: 'ctaHeading', title: 'Heading (Need Help? CTA — section title)',               type: 'string', group: 'cta' }),
+    defineField({ name: 'ctaBody1',   title: 'Paragraph 1 (Need Help? CTA — first body paragraph)',    type: 'text', rows: 3, group: 'cta' }),
+    defineField({ name: 'ctaBody2',   title: 'Paragraph 2 (Need Help? CTA — second body paragraph)',   type: 'text', rows: 3, group: 'cta' }),
   ],
 })
