@@ -8,6 +8,7 @@ import { tuition }      from './singletons/tuition'
 import { programs }     from './singletons/programs'
 import { program }      from './collections/program'
 import { subject }      from './collections/subject'
+import { legalPage }    from './collections/legalPage'
 
 export const schemaTypes = [
   // Singletons
@@ -22,4 +23,5 @@ export const schemaTypes = [
   // Collections
   program,
   subject,
+  legalPage,
 ]

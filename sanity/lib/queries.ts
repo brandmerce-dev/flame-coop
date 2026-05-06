@@ -121,6 +121,26 @@ export async function getPrograms() {
   }`)
 }
 
+// ── SITE SETTINGS ─────────────────────────────────────────────────────────────
+export async function getSiteSettings() {
+  return client.fetch(groq`*[_type == "siteSettings" && _id == "siteSettings"][0] {
+    siteName, tagline, contactEmail, phone, address,
+    instagramUrl, facebookUrl, youtubeUrl,
+  }`)
+}
+
+// ── LEGAL PAGES ───────────────────────────────────────────────────────────────
+export async function getLegalPage(slug: string) {
+  return client.fetch(groq`*[_type == "legalPage" && slug.current == $slug][0] {
+    title, seoTitle, seoDescription,
+    body[] { ..., children[] { ... } },
+  }`, { slug })
+}
+
+export async function getLegalPageSlugs() {
+  return client.fetch(groq`*[_type == "legalPage"] { "slug": slug.current }`)
+}
+
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 export async function getNavigation() {
   return client.fetch(groq`*[_type == "navigation" && _id == "navigation"][0] {

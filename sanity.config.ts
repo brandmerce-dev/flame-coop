@@ -4,6 +4,8 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './sanity/schemaTypes'
 
 const singletonTypes = ['siteSettings', 'navigation', 'homepage', 'about', 'beliefs', 'admissions', 'tuition', 'programs']
+// Collections that allow multiple documents
+const collectionTypes = ['program', 'subject', 'legalPage']
 
 export default defineConfig({
   name:    'flame-coop',
@@ -37,6 +39,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('program').title('Programs'),
             S.documentTypeListItem('subject').title('Academic Subjects'),
+            S.documentTypeListItem('legalPage').title('Legal Pages'),
           ]),
     }),
     visionTool(),
@@ -46,7 +49,7 @@ export default defineConfig({
     types: schemaTypes,
     // Hide "New document" for singletons
     templates: (templates) =>
-      templates.filter(({ schemaType }) => !singletonTypes.includes(schemaType)),
+      templates.filter(({ schemaType }) => !singletonTypes.includes(schemaType) || collectionTypes.includes(schemaType)),
   },
 
   document: {

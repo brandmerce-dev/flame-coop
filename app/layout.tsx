@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 import SiteChrome from '@/components/SiteChrome';
+import Footer from '@/components/Footer';
 import '@/styles/globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <SiteChrome>{children}</SiteChrome>
+        <Footer />
       </body>
     </html>
   );
