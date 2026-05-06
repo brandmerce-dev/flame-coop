@@ -44,6 +44,8 @@ export default async function AdmissionsPage() {
   const enrollmentOpenMessage    = cms?.enrollmentOpenMessage    ?? 'Enrollment for the upcoming school year is open. Complete the form to begin the admissions process and receive information about upcoming information meetings.';
   const enrollmentClosedMessage  = cms?.enrollmentClosedMessage  ?? 'Enrollment for the upcoming school year is currently closed. Complete the form to be added to our interest list and we\'ll reach out when enrollment reopens.';
 
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+
   const requestInfoEyebrow  = cms?.requestInfoEyebrow  ?? 'Request Information';
   const requestInfoHeading  = cms?.requestInfoHeading  ?? "Have Questions? We'd Love to Meet Your Family.";
   const requestInfoBody1    = cms?.requestInfoBody1    ?? "Tell us a little about your family and what you're looking for. Someone from our team will follow up with next steps and upcoming information meeting details.";
@@ -56,7 +58,6 @@ export default async function AdmissionsPage() {
   const beforeApplyHeading = cms?.beforeApplyHeading ?? "What You're Saying Yes To.";
   const beforeApplyIntro   = cms?.beforeApplyIntro   ?? "The Flame is a cooperative — every family who joins is a partner, not just a participant. Before applying, it helps to know what you're stepping into:";
   const afterEnrollHeading = cms?.afterEnrollHeading ?? "You're Not Just on a Roster. You're Part of the Family.";
-  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
 
   const fitImageSrc        = cms?.fitImage ? urlFor(cms.fitImage).width(1200).url() : undefined;
   const fitImageAlt2       = cms?.fitImageAlt ?? 'Welcoming family community moment';
