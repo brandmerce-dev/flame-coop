@@ -1,9 +1,10 @@
 export const revalidate = 0; // always fetch fresh from Sanity
 
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
-import { getPrograms, getPagePrograms } from '@/sanity/lib/queries';
+import { getPrograms, getPagePrograms, getSubjects } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 
 const defaultElementary = [
@@ -20,22 +21,25 @@ const defaultDiscipleship = [
 ];
 
 const defaultSubjects = [
-  { name: 'Bible & Spiritual Development', desc: "Every day is grounded in a biblical worldview. Students move through the Old Testament, the Gospels, the early church, and the ongoing work of the Holy Spirit — one level at a time, building on what came before." },
-  { name: 'Math',                          desc: "Using the Saxon Math Program, students receive guided small-group instruction plus real-life application. Math isn't a worksheet here — it's a window into the order and beauty of what God made." },
-  { name: 'Reading & Language Arts',       desc: "We use the Orton-Gillingham multisensory approach — one of the most effective reading models available. Students build strong foundations in reading, writing, spelling, and comprehension. Upper levels tackle full novels, annotation, and literary analysis." },
-  { name: 'Science, History, Music & Art', desc: "Interdisciplinary units built around a central theme — connecting subjects across learning styles. Students don't just read about things. They build them, discuss them, and ask real questions about them." },
-  { name: 'Grammar & Writing',             desc: "Grammar is discovered, not memorized. Writing is taught as a skill worth mastering — students learn to organize their thoughts, support an argument, and say exactly what they mean." },
+  { name: 'Bible & Spiritual Development', description: "Every day is grounded in a biblical worldview. Students move through the Old Testament, the Gospels, the early church, and the ongoing work of the Holy Spirit — one level at a time, building on what came before." },
+  { name: 'Math',                          description: "Using the Saxon Math Program, students receive guided small-group instruction plus real-life application. Math isn't a worksheet here — it's a window into the order and beauty of what God made." },
+  { name: 'Reading & Language Arts',       description: "We use the Orton-Gillingham multisensory approach — one of the most effective reading models available. Students build strong foundations in reading, writing, spelling, and comprehension. Upper levels tackle full novels, annotation, and literary analysis." },
+  { name: 'Science, History, Music & Art', description: "Interdisciplinary units built around a central theme — connecting subjects across learning styles. Students don't just read about things. They build them, discuss them, and ask real questions about them." },
+  { name: 'Grammar & Writing',             description: "Grammar is discovered, not memorized. Writing is taught as a skill worth mastering — students learn to organize their thoughts, support an argument, and say exactly what they mean." },
 ];
 
-export const metadata: Metadata = {
-  title: 'Programs',
-  description: "From Kindergarten through high school — academically rich, spiritually rooted, moving at your child's actual pace. Every program is a step deeper into the fire.",
-  openGraph: {
-    title:       'Programs | The Flame Christian Co-op',
-    description: 'From Kindergarten through high school — academically rich, spiritually rooted.',
-  },
-  alternates: { canonical: 'https://theflame.org/programs' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cms = await getPagePrograms();
+  return {
+    title:       cms?.seoTitle       ?? 'Programs',
+    description: cms?.seoDescription ?? "From Kindergarten through high school — academically rich, spiritually rooted, moving at your child's actual pace. Every program is a step deeper into the fire.",
+    openGraph: {
+      title:       cms?.seoTitle       ?? 'Programs | The Flame Christian Co-op',
+      description: cms?.seoDescription ?? 'From Kindergarten through high school — academically rich, spiritually rooted.',
+    },
+    alternates: { canonical: 'https://theflame.org/programs' },
+  };
+}
 
 function renderBadgeLabel(label: string) {
   if (label === 'DI')   return <><span>D</span><span style={{ fontSize: '.7em' }}>I</span></>;
@@ -45,20 +49,53 @@ function renderBadgeLabel(label: string) {
 }
 
 export default async function ProgramsPage() {
-  const [sanityPrograms, cmsPage] = await Promise.all([getPrograms(), getPagePrograms()])
+  const [sanityPrograms, cmsPage, sanitySubjects] = await Promise.all([
+    getPrograms(),
+    getPagePrograms(),
+    getSubjects(),
+  ]);
 
-  const heroStyle    = (cmsPage?.heroStyle as 'cream' | 'image' | 'none' | 'dark') ?? 'cream'
-  const heroEyebrow  = cmsPage?.heroEyebrow  ?? 'Our Programs'
-  const heroHeadline = cmsPage?.heroHeadline ?? 'Every Program Is a Step Deeper Into the Fire.'
-  const heroLead     = cmsPage?.heroLead     ?? "From Kindergarten through high school — academically rich, spiritually rooted, moving at your child's actual pace."
-  const heroImageSrc = cmsPage?.heroImage ? urlFor(cmsPage.heroImage).width(2400).url() : undefined
-  const heroImageAlt = cmsPage?.heroImageAlt ?? undefined
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+
+  const heroStyle    = (cmsPage?.heroStyle as 'cream' | 'image' | 'none' | 'dark') ?? 'cream';
+  const heroEyebrow  = cmsPage?.heroEyebrow  ?? 'Our Programs';
+  const heroHeadline = cmsPage?.heroHeadline ?? 'Every Program Is a Step Deeper Into the Fire.';
+  const heroLead     = cmsPage?.heroLead     ?? "From Kindergarten through high school — academically rich, spiritually rooted, moving at your child's actual pace.";
+  const heroImageSrc = cmsPage?.heroImage ? urlFor(cmsPage.heroImage).width(2400).url() : undefined;
+  const heroImageAlt = cmsPage?.heroImageAlt ?? undefined;
+
+  const levelsEyebrow     = cmsPage?.levelsEyebrow ?? 'How the Levels Work';
+  const levelsHeading     = cmsPage?.levelsHeading ?? 'Not Grade Levels. Flame Levels.';
+  const levelsImageSrc    = cmsPage?.levelsImage ? urlFor(cmsPage.levelsImage).width(1200).url() : undefined;
+  const levelsImageAlt    = cmsPage?.levelsImageAlt ?? 'Students in a hands-on activity';
+  const levelsImageAspect = aspectMap[cmsPage?.levelsImageAspect ?? 'wide'] ?? '16 / 10';
+
+  type PtBlock = { _type?: string; children?: { text?: string }[] };
+  const levelsParagraphs: string[] | null = Array.isArray(cmsPage?.levelsBody)
+    ? (cmsPage!.levelsBody as PtBlock[])
+        .filter((b) => b?._type === 'block')
+        .map((b) => (b.children ?? []).map((c) => c?.text ?? '').join(''))
+        .filter((s) => s.trim().length > 0)
+    : null;
+
+  const elementaryEyebrow  = cmsPage?.elementaryEyebrow  ?? 'Elementary Programs';
+  const elementaryHeading  = cmsPage?.elementaryHeading  ?? 'The First Three Levels — Where the Fire Starts.';
+  const elementaryIntro    = cmsPage?.elementaryIntro    ?? 'Ages 5–12. Play-based foundations, Old Testament roots, and the growing realization that the same God who made the universe made them.';
+
+  const discipleshipEyebrow = cmsPage?.discipleshipEyebrow ?? 'Discipleship Programs';
+  const discipleshipHeading = cmsPage?.discipleshipHeading ?? 'The Next Three Levels — Where Faith Gets Tested and Owned.';
+  const discipleshipIntro   = cmsPage?.discipleshipIntro   ?? 'Ages 12 and up. This is where your teenager stops inheriting their faith and starts owning it.';
+
+  const academicEyebrow = cmsPage?.academicEyebrow ?? 'Academic Approach';
+  const academicHeading = cmsPage?.academicHeading ?? 'Strong Academics, Built on a Biblical Worldview.';
+  const academicIntro   = cmsPage?.academicIntro   ?? 'Academics matter at The Flame because children are called to think, communicate, create, solve, discern, and lead.';
 
   const elementaryPrograms   = sanityPrograms?.filter((p: { variant: string }) => p.variant === 'elementary')   ?? [];
   const discipleshipPrograms = sanityPrograms?.filter((p: { variant: string }) => p.variant === 'discipleship') ?? [];
 
   const elementary   = elementaryPrograms.length   ? elementaryPrograms   : defaultElementary;
   const discipleship = discipleshipPrograms.length ? discipleshipPrograms : defaultDiscipleship;
+  const subjects     = sanitySubjects?.length       ? sanitySubjects       : defaultSubjects;
 
   return (
     <>
@@ -82,13 +119,27 @@ export default async function ProgramsPage() {
         <div className="container">
           <div className="split reveal">
             <div className="split__body">
-              <span className="eyebrow">How the Levels Work</span>
-              <h2 style={{ marginBottom: '20px' }}>Not Grade Levels. Flame Levels.</h2>
-              <p>At The Flame, children aren&apos;t sorted by age and pushed through a fixed track. They&apos;re placed where they are actually ready to learn — developmentally, academically, socially, and spiritually.</p>
-              <p style={{ marginTop: '12px' }}>Each level runs a two-year cycled curriculum. Students build real mastery before moving forward. Some children move through a level in one year; others need two. Either way, the goal is the same: solid ground, steady growth, a child who is genuinely ready for the next step.</p>
+              <span className="eyebrow">{levelsEyebrow}</span>
+              <h2 style={{ marginBottom: '20px' }}>{levelsHeading}</h2>
+              {levelsParagraphs ? (
+                levelsParagraphs.map((p, i) => (
+                  <p key={i} style={i > 0 ? { marginTop: '12px' } : undefined}>{p}</p>
+                ))
+              ) : (
+                <>
+                  <p>At The Flame, children aren&apos;t sorted by age and pushed through a fixed track. They&apos;re placed where they are actually ready to learn — developmentally, academically, socially, and spiritually.</p>
+                  <p style={{ marginTop: '12px' }}>Each level runs a two-year cycled curriculum. Students build real mastery before moving forward. Some children move through a level in one year; others need two. Either way, the goal is the same: solid ground, steady growth, a child who is genuinely ready for the next step.</p>
+                </>
+              )}
             </div>
             <div className="split__media reveal reveal-delay-1">
-              <ImagePlaceholder label="Photo: Students in a hands-on activity" aspectRatio="wide" />
+              {levelsImageSrc ? (
+                <div style={{ position: 'relative', width: '100%', aspectRatio: levelsImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                  <Image src={levelsImageSrc} alt={levelsImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <ImagePlaceholder label="Photo: Students in a hands-on activity" aspectRatio="wide" />
+              )}
             </div>
           </div>
         </div>
@@ -98,9 +149,9 @@ export default async function ProgramsPage() {
       <section className="section--cream">
         <div className="container">
           <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
-            <span className="eyebrow">Elementary Programs</span>
-            <h2 style={{ marginBottom: '12px' }}>The First Three Levels — Where the Fire Starts.</h2>
-            <p>Ages 5–12. Play-based foundations, Old Testament roots, and the growing realization that the same God who made the universe made them.</p>
+            <span className="eyebrow">{elementaryEyebrow}</span>
+            <h2 style={{ marginBottom: '12px' }}>{elementaryHeading}</h2>
+            <p>{elementaryIntro}</p>
           </div>
           <div className="prog-cards reveal">
             {elementary.map((p: typeof defaultElementary[0], i: number) => (
@@ -124,9 +175,9 @@ export default async function ProgramsPage() {
       <section style={{ padding: 'var(--section-v) 0' }}>
         <div className="container">
           <div className="reveal" style={{ maxWidth: '740px', marginBottom: '32px' }}>
-            <span className="eyebrow">Discipleship Programs</span>
-            <h2 style={{ marginBottom: '12px' }}>The Next Three Levels — Where Faith Gets Tested and Owned.</h2>
-            <p>Ages 12 and up. This is where your teenager stops inheriting their faith and starts owning it.</p>
+            <span className="eyebrow">{discipleshipEyebrow}</span>
+            <h2 style={{ marginBottom: '12px' }}>{discipleshipHeading}</h2>
+            <p>{discipleshipIntro}</p>
           </div>
           <div className="prog-cards reveal">
             {discipleship.map((p: typeof defaultDiscipleship[0], i: number) => (
@@ -150,17 +201,17 @@ export default async function ProgramsPage() {
       <section className="section--cream2">
         <div className="container">
           <div className="reveal" style={{ maxWidth: '680px', marginBottom: '32px' }}>
-            <span className="eyebrow">Academic Approach</span>
-            <h2 style={{ marginBottom: '12px' }}>Strong Academics, Built on a Biblical Worldview.</h2>
-            <p>Academics matter at The Flame because children are called to think, communicate, create, solve, discern, and lead.</p>
+            <span className="eyebrow">{academicEyebrow}</span>
+            <h2 style={{ marginBottom: '12px' }}>{academicHeading}</h2>
+            <p>{academicIntro}</p>
           </div>
           <div className="subject-rows reveal">
-            {defaultSubjects.map((s, i) => (
+            {subjects.map((s: { name: string; description: string }, i: number) => (
               <div key={i} className="subject-row">
                 <div className="subject-row__label">
                   <div className="subject-row__name">{s.name}</div>
                 </div>
-                <div className="subject-row__body">{s.desc}</div>
+                <div className="subject-row__body">{s.description}</div>
               </div>
             ))}
           </div>

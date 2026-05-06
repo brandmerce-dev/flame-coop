@@ -95,8 +95,21 @@ export async function getTuition() {
 // ── PROGRAMS PAGE ─────────────────────────────────────────────────────────────
 export async function getPagePrograms() {
   return client.fetch(groq`*[_type == "programs" && _id == "programs"][0] {
+    seoTitle, seoDescription,
     heroStyle, heroEyebrow, heroHeadline, heroLead,
     heroImage ${imageFields}, heroImageAlt,
+    levelsEyebrow, levelsHeading, levelsBody[] { ..., children[] { ... } },
+    levelsImage ${imageFields}, levelsImageAlt, levelsImageAspect,
+    elementaryEyebrow, elementaryHeading, elementaryIntro,
+    discipleshipEyebrow, discipleshipHeading, discipleshipIntro,
+    academicEyebrow, academicHeading, academicIntro,
+  }`)
+}
+
+// ── SUBJECTS ──────────────────────────────────────────────────────────────────
+export async function getSubjects() {
+  return client.fetch(groq`*[_type == "subject"] | order(displayOrder asc) {
+    _id, name, description,
   }`)
 }
 
