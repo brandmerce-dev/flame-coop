@@ -55,6 +55,20 @@ export const beliefs = defineType({
     }),
     defineField({ name: 'statementImage',    title: 'Image (Statement of Faith — photo beside the belief list)',             type: 'image', options: { hotspot: true }, group: 'statement' }),
     defineField({ name: 'statementImageAlt', title: 'Image Alt Text (Statement of Faith — accessibility description)',       type: 'string', group: 'statement' }),
+    defineField({
+      name: 'statementImageAspect',
+      title: 'Image Shape (Statement of Faith — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'statement',
+      options: {
+        list: [
+          { title: 'Tall (3:4) — recommended, matches default layout', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10)', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'tall',
+    }),
 
     defineField({ name: 'faithClassroomTitle', title: 'Heading (Faith in the Classroom — section title)', type: 'string', group: 'faith' }),
     defineField({
@@ -63,6 +77,20 @@ export const beliefs = defineType({
     }),
     defineField({ name: 'faithClassroomImage',    title: 'Image (Faith in the Classroom — photo beside text)',               type: 'image', options: { hotspot: true }, group: 'faith' }),
     defineField({ name: 'faithClassroomImageAlt', title: 'Image Alt Text (Faith in the Classroom — accessibility description)', type: 'string', group: 'faith' }),
+    defineField({
+      name: 'faithClassroomImageAspect',
+      title: 'Image Shape (Faith in the Classroom — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'faith',
+      options: {
+        list: [
+          { title: 'Tall (3:4)', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10) — recommended, matches default layout', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'wide',
+    }),
 
     defineField({ name: 'formationTitle', title: 'Heading (Formation — dark section title)',                                  type: 'string', group: 'formation' }),
     defineField({ name: 'formationQuote', title: 'Italic Quote (Formation — displayed in gold italic below heading)',         type: 'text', rows: 3, group: 'formation' }),

@@ -51,10 +51,14 @@ export default async function BeliefsPage() {
   const formationQuote     = cms?.formationQuote     ?? 'The world will ask your children hard questions. We want them to be ready.';
   const formationBody      = cms?.formationBody      ?? 'Who are you? What do you believe? What will you do when your faith is challenged? At The Flame, we want children to know Scripture, hear God\'s voice, pray for others, serve with humility, and walk with the quiet confidence of someone who knows exactly who they are in Christ. Not just academically prepared. Formed.';
 
-  const statementImageSrc  = cms?.statementImage ? urlFor(cms.statementImage).width(1200).url() : undefined;
-  const statementImageAlt2 = cms?.statementImageAlt ?? 'Students in prayer or quiet Bible moment';
-  const faithImageSrc      = cms?.faithClassroomImage ? urlFor(cms.faithClassroomImage).width(1200).url() : undefined;
-  const faithImageAlt      = cms?.faithClassroomImageAlt ?? 'Student in small group discussion';
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+
+  const statementImageSrc    = cms?.statementImage ? urlFor(cms.statementImage).width(1200).url() : undefined;
+  const statementImageAlt2   = cms?.statementImageAlt ?? 'Students in prayer or quiet Bible moment';
+  const statementImageAspect = aspectMap[cms?.statementImageAspect ?? 'tall'] ?? '3 / 4';
+  const faithImageSrc        = cms?.faithClassroomImage ? urlFor(cms.faithClassroomImage).width(1200).url() : undefined;
+  const faithImageAlt        = cms?.faithClassroomImageAlt ?? 'Student in small group discussion';
+  const faithImageAspect     = aspectMap[cms?.faithClassroomImageAspect ?? 'wide'] ?? '16 / 10';
 
   type PtBlock = { _type?: string; children?: { text?: string }[] };
   const faithParagraphs: string[] | null = Array.isArray(cms?.faithClassroomBody)
@@ -97,7 +101,7 @@ export default async function BeliefsPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {statementImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: statementImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={statementImageSrc} alt={statementImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (
@@ -132,7 +136,7 @@ export default async function BeliefsPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {faithImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: faithImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={faithImageSrc} alt={faithImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (

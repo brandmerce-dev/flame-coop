@@ -13,8 +13,9 @@ interface AdmissionsFormProps {
   requestInfoBody1:     string;
   requestInfoBody2:     string;
   requestInfoBtnLabel:  string;
-  requestInfoImageSrc?: string;
-  requestInfoImageAlt:  string;
+  requestInfoImageSrc?:    string;
+  requestInfoImageAlt:     string;
+  requestInfoImageAspect:  string;
 }
 
 const admissionSteps = [
@@ -30,7 +31,7 @@ const admissionSteps = [
 export default function AdmissionsForm({
   enrollmentOpen, enrollmentOpenMessage, enrollmentClosedMessage,
   requestInfoEyebrow, requestInfoHeading, requestInfoBody1, requestInfoBody2,
-  requestInfoBtnLabel, requestInfoImageSrc, requestInfoImageAlt,
+  requestInfoBtnLabel, requestInfoImageSrc, requestInfoImageAlt, requestInfoImageAspect,
 }: AdmissionsFormProps) {
 
   return (
@@ -83,7 +84,7 @@ export default function AdmissionsForm({
             </div>
             <div className="split__media reveal reveal-delay-1" style={{ paddingTop: '48px' }}>
               {requestInfoImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: requestInfoImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={requestInfoImageSrc} alt={requestInfoImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (

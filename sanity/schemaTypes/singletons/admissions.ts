@@ -56,6 +56,20 @@ export const admissions = defineType({
     }),
     defineField({ name: 'fitImage',    title: 'Image (Before You Apply — photo beside the checklist)',               type: 'image', options: { hotspot: true }, group: 'fit' }),
     defineField({ name: 'fitImageAlt', title: 'Image Alt Text (Before You Apply — accessibility description)',       type: 'string', group: 'fit' }),
+    defineField({
+      name: 'fitImageAspect',
+      title: 'Image Shape (Before You Apply — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'fit',
+      options: {
+        list: [
+          { title: 'Tall (3:4) — recommended, matches default layout', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10)', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'tall',
+    }),
 
     defineField({
       name: 'enrollmentOpen', title: 'Enrollment is Currently OPEN (Enrollment Status — toggle on/off)',
@@ -72,6 +86,20 @@ export const admissions = defineType({
     }),
     defineField({ name: 'afterEnrollImage',    title: 'Image (After You Enroll — photo beside text)',                   type: 'image', options: { hotspot: true }, group: 'after' }),
     defineField({ name: 'afterEnrollImageAlt', title: 'Image Alt Text (After You Enroll — accessibility description)', type: 'string', group: 'after' }),
+    defineField({
+      name: 'afterEnrollImageAspect',
+      title: 'Image Shape (After You Enroll — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'after',
+      options: {
+        list: [
+          { title: 'Tall (3:4)', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10) — recommended, matches default layout', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'wide',
+    }),
 
     defineField({ name: 'requestInfoEyebrow', title: 'Eyebrow (Request Information — small label above heading)',      type: 'string', group: 'request' }),
     defineField({ name: 'requestInfoHeading', title: 'Heading (Request Information — main section title)',             type: 'string', group: 'request' }),
@@ -80,5 +108,19 @@ export const admissions = defineType({
     defineField({ name: 'requestInfoBtnLabel', title: 'Button Label (Request Information — CTA button text)',         type: 'string', group: 'request' }),
     defineField({ name: 'requestInfoImage',    title: 'Image (Request Information — photo on the right side)',        type: 'image', options: { hotspot: true }, group: 'request' }),
     defineField({ name: 'requestInfoImageAlt', title: 'Image Alt Text (Request Information — accessibility description)', type: 'string', group: 'request' }),
+    defineField({
+      name: 'requestInfoImageAspect',
+      title: 'Image Shape (Request Information — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'request',
+      options: {
+        list: [
+          { title: 'Tall (3:4) — recommended, matches default layout', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10)', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'tall',
+    }),
   ],
 })

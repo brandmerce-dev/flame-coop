@@ -96,6 +96,20 @@ export const tuition = defineType({
     }),
     defineField({ name: 'scholarshipsImage',    title: 'Image (Scholarships — photo beside scholarship content)',      type: 'image', options: { hotspot: true }, group: 'scholarships' }),
     defineField({ name: 'scholarshipsImageAlt', title: 'Image Alt Text (Scholarships — accessibility description)',   type: 'string', group: 'scholarships' }),
+    defineField({
+      name: 'scholarshipsImageAspect',
+      title: 'Image Shape (Scholarships — controls box proportions; image is cropped to fit using the hotspot)',
+      type: 'string', group: 'scholarships',
+      options: {
+        list: [
+          { title: 'Tall (3:4)', value: 'tall' },
+          { title: 'Square (1:1)', value: 'square' },
+          { title: 'Wide (16:10) — recommended, matches default layout', value: 'wide' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'wide',
+    }),
 
     defineField({ name: 'ctaEyebrow', title: 'Eyebrow (Need Help? CTA — small label above heading)',   type: 'string', group: 'cta' }),
     defineField({ name: 'ctaHeading', title: 'Heading (Need Help? CTA — section title)',               type: 'string', group: 'cta' }),

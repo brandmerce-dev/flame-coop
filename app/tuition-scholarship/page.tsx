@@ -68,8 +68,11 @@ export default async function TuitionPage() {
   const ctaHeading          = cms?.ctaHeading ?? "You Don't Have to Figure This Out Alone.";
   const ctaBody1            = cms?.ctaBody1   ?? "If you're looking at this page and feeling unsure about tuition timing, scholarship eligibility, or what applies to your child's program — reach out.";
   const ctaBody2            = cms?.ctaBody2   ?? 'Our admissions team will walk you through it clearly, without pressure.';
-  const scholarshipsImageSrc  = cms?.scholarshipsImage ? urlFor(cms.scholarshipsImage).width(1200).url() : undefined;
-  const scholarshipsImageAlt2 = cms?.scholarshipsImageAlt ?? 'Student and parent in learning environment';
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+
+  const scholarshipsImageSrc    = cms?.scholarshipsImage ? urlFor(cms.scholarshipsImage).width(1200).url() : undefined;
+  const scholarshipsImageAlt2   = cms?.scholarshipsImageAlt ?? 'Student and parent in learning environment';
+  const scholarshipsImageAspect = aspectMap[cms?.scholarshipsImageAspect ?? 'wide'] ?? '16 / 10';
 
   return (
     <>
@@ -162,7 +165,7 @@ export default async function TuitionPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {scholarshipsImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: scholarshipsImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={scholarshipsImageSrc} alt={scholarshipsImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (

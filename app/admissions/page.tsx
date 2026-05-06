@@ -49,16 +49,21 @@ export default async function AdmissionsPage() {
   const requestInfoBody1    = cms?.requestInfoBody1    ?? "Tell us a little about your family and what you're looking for. Someone from our team will follow up with next steps and upcoming information meeting details.";
   const requestInfoBody2    = cms?.requestInfoBody2    ?? 'Our admissions form is powered by Eduweby, the platform we use to manage enrollment. It takes about two minutes to complete.';
   const requestInfoBtnLabel = cms?.requestInfoBtnLabel ?? 'Begin Your Inquiry';
-  const requestInfoImageSrc = cms?.requestInfoImage ? urlFor(cms.requestInfoImage).width(1200).url() : undefined;
-  const requestInfoImageAlt = cms?.requestInfoImageAlt ?? 'Welcoming community atmosphere';
+  const requestInfoImageSrc    = cms?.requestInfoImage ? urlFor(cms.requestInfoImage).width(1200).url() : undefined;
+  const requestInfoImageAlt    = cms?.requestInfoImageAlt ?? 'Welcoming community atmosphere';
+  const requestInfoImageAspect = aspectMap[cms?.requestInfoImageAspect ?? 'tall'] ?? '3 / 4';
 
   const beforeApplyHeading = cms?.beforeApplyHeading ?? "What You're Saying Yes To.";
   const beforeApplyIntro   = cms?.beforeApplyIntro   ?? "The Flame is a cooperative — every family who joins is a partner, not just a participant. Before applying, it helps to know what you're stepping into:";
   const afterEnrollHeading = cms?.afterEnrollHeading ?? "You're Not Just on a Roster. You're Part of the Family.";
+  const aspectMap: Record<string, string> = { tall: '3 / 4', square: '1 / 1', wide: '16 / 10' };
+
   const fitImageSrc        = cms?.fitImage ? urlFor(cms.fitImage).width(1200).url() : undefined;
   const fitImageAlt2       = cms?.fitImageAlt ?? 'Welcoming family community moment';
+  const fitImageAspect     = aspectMap[cms?.fitImageAspect ?? 'tall'] ?? '3 / 4';
   const afterEnrollImageSrc = cms?.afterEnrollImage ? urlFor(cms.afterEnrollImage).width(1200).url() : undefined;
   const afterEnrollImageAlt = cms?.afterEnrollImageAlt ?? 'Parent and child at The Flame';
+  const afterEnrollImageAspect = aspectMap[cms?.afterEnrollImageAspect ?? 'wide'] ?? '16 / 10';
 
   type PtBlock = { _type?: string; children?: { text?: string }[] };
   const afterEnrollParagraphs: string[] | null = Array.isArray(cms?.afterEnrollBody)
@@ -101,7 +106,7 @@ export default async function AdmissionsPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {fitImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: fitImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={fitImageSrc} alt={fitImageAlt2} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (
@@ -138,7 +143,7 @@ export default async function AdmissionsPage() {
             </div>
             <div className="split__media reveal reveal-delay-1">
               {afterEnrollImageSrc ? (
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: afterEnrollImageAspect, borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
                   <Image src={afterEnrollImageSrc} alt={afterEnrollImageAlt} fill sizes="(max-width: 768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
                 </div>
               ) : (
@@ -161,6 +166,7 @@ export default async function AdmissionsPage() {
         requestInfoBtnLabel={requestInfoBtnLabel}
         requestInfoImageSrc={requestInfoImageSrc}
         requestInfoImageAlt={requestInfoImageAlt}
+        requestInfoImageAspect={requestInfoImageAspect}
       />
     </>
   );
