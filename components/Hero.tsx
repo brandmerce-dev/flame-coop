@@ -146,6 +146,10 @@ export default function Hero({
         @media (max-width: 1024px) { .hero-content-inner { width: 85% !important; } }
         @media (max-width: 768px)  { .hero-content-inner { width: 92% !important; } }
         @media (max-width: 480px)  { .hero-content-inner { width: 100% !important; } }
+        @media (max-width: 600px)  {
+          .hero .btn-group { flex-direction: column; align-items: center; width: 100%; }
+          .hero .btn       { width: 100%; max-width: 340px; justify-content: center; }
+        }
       `}</style>
     </section>
   );
