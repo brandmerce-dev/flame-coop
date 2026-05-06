@@ -63,7 +63,6 @@ export default async function Footer() {
             <Link href="/programs"            className="footer__link">Our Programs</Link>
             <Link href="/admissions"          className="footer__link">Admission</Link>
             <Link href="/tuition-scholarship" className="footer__link">Tuition &amp; Scholarship</Link>
-            <Link href="#"                    className="footer__link">Handbook</Link>
           </div>
 
           {/* Resources */}
