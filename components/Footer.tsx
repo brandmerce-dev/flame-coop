@@ -80,8 +80,8 @@ export default async function Footer() {
             © {year} The Flame Christian Cooperative. All rights reserved.
             {' · '}
             <a href="https://eduweby.com" target="_blank" rel="noopener noreferrer"
-              style={{ color: 'inherit', opacity: 0.5, textDecoration: 'none' }}>
-              Website by Eduweby
+              style={{ textDecoration: 'none', color: 'inherit' }}>
+              Website by <span style={{ color: 'var(--gold)' }}>Eduweby</span>
             </a>
           </p>
           <div className="footer__legal">
