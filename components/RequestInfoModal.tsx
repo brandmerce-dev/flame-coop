@@ -10,7 +10,8 @@ export function openRequestInfoModal() {
 
 export default function RequestInfoModal() {
   const [open, setOpen] = useState(false);
-  const wasOpenRef = useRef(false);
+  const wasOpenRef  = useRef(false);
+  const savedScrollY = useRef(0); // ref survives effect cleanup runs
 
   useEffect(() => {
     const handler = () => setOpen(true);
@@ -24,24 +25,29 @@ export default function RequestInfoModal() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // iOS-compatible scroll lock
+  // iOS-compatible scroll lock.
+  // BUG FIXED: React runs the *cleanup* of the previous effect before the new
+  // effect, so reading document.body.style.top in the else branch always got ''
+  // (already cleared by cleanup). Storing scrollY in a ref means it survives
+  // the cleanup run. requestAnimationFrame ensures the scroll restore fires
+  // after the browser has processed the style removal.
   useEffect(() => {
     if (open) {
-      wasOpenRef.current = true;
-      const scrollY = window.scrollY;
-      document.body.style.position   = 'fixed';
-      document.body.style.top        = `-${scrollY}px`;
-      document.body.style.width      = '100%';
-      document.body.style.overflowY  = 'scroll';
+      wasOpenRef.current   = true;
+      savedScrollY.current = window.scrollY;
+      document.body.style.position  = 'fixed';
+      document.body.style.top       = `-${savedScrollY.current}px`;
+      document.body.style.width     = '100%';
+      document.body.style.overflowY = 'scroll';
     } else if (wasOpenRef.current) {
-      const savedTop = document.body.style.top;
-      document.body.style.position   = '';
-      document.body.style.top        = '';
-      document.body.style.width      = '';
-      document.body.style.overflowY  = '';
-      if (savedTop) {
-        window.scrollTo(0, parseInt(savedTop) * -1);
-      }
+      document.body.style.position  = '';
+      document.body.style.top       = '';
+      document.body.style.width     = '';
+      document.body.style.overflowY = '';
+      // rAF: let the browser apply the style removal before jumping scroll
+      requestAnimationFrame(() => {
+        window.scrollTo(0, savedScrollY.current);
+      });
     }
     return () => {
       document.body.style.position  = '';
