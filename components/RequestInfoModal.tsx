@@ -95,14 +95,21 @@ export default function RequestInfoModal() {
           }
           .rim-sheet {
             border-radius: 0;
-            min-height:    100dvh;
-            display:       flex;
-            flex-direction: column;
+            overflow:      hidden;
           }
+          /*
+           * Scale trick for cross-origin iframes:
+           * We can't edit Eduweby's internal padding, so we zoom the iframe
+           * content in by 20% (scale 1.2). To keep it fitting the container,
+           * we set the iframe's actual width to 100%/1.2 = 83.33% and let
+           * transform scale it back to full width. Result: content appears
+           * 20% larger → internal padding looks smaller → fields are wider.
+           */
           .rim-sheet iframe {
-            flex: 1;
-            min-height: 0 !important;
-            height:     100% !important;
+            width:              83.33% !important;
+            min-height:         750px  !important;
+            transform:          scale(1.2);
+            transform-origin:   top left;
           }
         }
       `}</style>
