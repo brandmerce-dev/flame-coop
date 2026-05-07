@@ -136,21 +136,27 @@ export default function RequestInfoModal() {
           transform: translateY(0);
         }
 
-        /* Mobile: full-screen sheet for max form field width.
-           NOTE: no align-items:stretch — sheet must size to its tall content
-           so the overlay's overflow-y:auto can actually scroll. */
+        /* Mobile: full-screen sheet, header pinned at top, iframe fills rest.
+           The iframe's own internal scroll handles the form — no outer overlay
+           scroll needed. This eliminates: left/right bounce, close button going
+           off screen, and scroll overshooting. */
         @media (max-width: 600px) {
           .rim-overlay--full {
-            padding: 0;
+            padding:     0;
+            align-items: stretch;
+            overflow:    hidden;
           }
           .rim-sheet {
-            border-radius: 0;
-            overflow:      visible;
+            border-radius:  0;
+            overflow:       hidden;
+            height:         100%;
+            display:        flex;
+            flex-direction: column;
           }
-          /* Tall enough to render eduweby's full form without internal
-             iframe scrolling — the modal overlay handles all scrolling. */
           .rim-form-iframe {
-            min-height: 2400px !important;
+            flex:       1 !important;
+            min-height: 0 !important;
+            height:     100% !important;
           }
         }
       `}</style>
@@ -190,7 +196,7 @@ export default function RequestInfoModal() {
           <iframe
             src={EDUWEBY_URL}
             className="rim-form-iframe"
-            style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block' }}
+            style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block', touchAction: 'manipulation' }}
             title="Request Information Form"
           />
         </div>
