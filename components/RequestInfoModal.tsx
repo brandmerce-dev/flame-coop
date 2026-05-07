@@ -102,14 +102,57 @@ export default function RequestInfoModal() {
           .rim-sheet {
             border-radius: 0;
           }
+          /*
+           * Make iframe tall enough that eduweby's form never needs to scroll
+           * internally — the modal overlay handles all scrolling. Avoids the
+           * nested-scroll-context bug where touch scroll fights between the
+           * iframe's internal scroll and the modal overlay's scroll on iOS.
+           */
+          .rim-form-iframe {
+            min-height: 2400px !important;
+          }
+        }
+
+        /*
+         * Preload iframe: warms the HTTP cache so the visible iframe renders
+         * near-instantly when the modal opens. position:absolute (NOT fixed)
+         * + 1x1px at top:0,left:0 keeps it completely out of the way and does
+         * NOT interfere with iOS Safari touch scroll the way a position:fixed
+         * preload iframe would.
+         */
+        .rim-preload {
+          position:       absolute;
+          top:            0;
+          left:           0;
+          width:          1px;
+          height:         1px;
+          opacity:        0;
+          visibility:     hidden;
+          pointer-events: none;
+          border:         0;
         }
       `}</style>
 
       {/*
-        Lazy-load iframe: src is only set when the modal is open. A loaded
-        iframe inside a position:fixed; inset:0 overlay (even at opacity:0 +
-        pointer-events:none) interferes with iOS Safari touch scroll, so
-        we keep the iframe empty until the user actually opens the modal.
+        Hidden preload iframe — loads eduweby form into the HTTP cache so the
+        visible modal iframe renders near-instantly when opened. position is
+        absolute (NOT fixed) and sized 1x1px, so it does NOT cover the
+        viewport and does NOT interfere with iOS Safari page scroll the way
+        the previous fixed/-9999px preload iframe did.
+      */}
+      <iframe
+        src={EDUWEBY_URL}
+        className="rim-preload"
+        title="Request Information Form (preload)"
+        aria-hidden="true"
+        tabIndex={-1}
+      />
+
+      {/*
+        Visible modal iframe — lazy-loaded (src only when open) so the page
+        scroll stays unaffected by a fully-loaded iframe inside the
+        position:fixed overlay. The preload iframe above primes the cache so
+        loading from src on open is near-instant.
       */}
       <div
         className={`rim-overlay${open ? ' open' : ''}`}
@@ -137,6 +180,7 @@ export default function RequestInfoModal() {
           </div>
           <iframe
             src={open ? EDUWEBY_URL : undefined}
+            className="rim-form-iframe"
             style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block' }}
             title="Request Information Form"
           />
