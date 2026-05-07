@@ -101,29 +101,15 @@ export default function RequestInfoModal() {
           }
           .rim-sheet {
             border-radius: 0;
-            overflow:      hidden;
-          }
-          /*
-           * Scale trick for cross-origin iframes:
-           * We can't edit Eduweby's internal padding, so we zoom the iframe
-           * content in by 20% (scale 1.2). To keep it fitting the container,
-           * we set the iframe's actual width to 100%/1.2 = 83.33% and let
-           * transform scale it back to full width. Result: content appears
-           * 20% larger → internal padding looks smaller → fields are wider.
-           */
-          .rim-sheet iframe {
-            width:              83.33% !important;
-            min-height:         750px  !important;
-            transform:          scale(1.2);
-            transform-origin:   top left;
           }
         }
       `}</style>
 
       {/*
-        iframe always in the DOM so it preloads immediately on page load.
-        The overlay is invisible + pointer-events:none when closed, so the
-        iframe doesn't interfere with page scroll even though it's mounted.
+        Lazy-load iframe: src is only set when the modal is open. A loaded
+        iframe inside a position:fixed; inset:0 overlay (even at opacity:0 +
+        pointer-events:none) interferes with iOS Safari touch scroll, so
+        we keep the iframe empty until the user actually opens the modal.
       */}
       <div
         className={`rim-overlay${open ? ' open' : ''}`}
@@ -150,7 +136,7 @@ export default function RequestInfoModal() {
             </button>
           </div>
           <iframe
-            src={EDUWEBY_URL}
+            src={open ? EDUWEBY_URL : undefined}
             style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block' }}
             title="Request Information Form"
           />
