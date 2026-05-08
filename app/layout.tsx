@@ -22,7 +22,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://theflame.org'),
+  metadataBase: new URL('https://theflamechristiancooperative.com'),
   title: {
     default:  'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
     template: '%s | The Flame Christian Co-op',
@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       }}
     >
       <head>
-        <link rel="canonical" href="https://theflame.org" />
+        <link rel="canonical" href="https://theflamechristiancooperative.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://eduweby.com" />

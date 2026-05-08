@@ -6,19 +6,42 @@ import Image from 'next/image';
 import Hero from '@/components/Hero';
 import ScriptureBanner from '@/components/ScriptureBanner';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
-import { getHomepage, getPrograms } from '@/sanity/lib/queries';
+import { getHomepage, getPrograms, getSiteSettings } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 
-export const metadata: Metadata = {
-  title: 'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
-  description:
-    "A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be.",
-  openGraph: {
-    title:       'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
-    description: "A Christ-centered homeschool cooperative in the St. Augustine area.",
-  },
-  alternates: { canonical: 'https://theflame.org' },
-};
+const DEFAULT_TITLE       = 'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative';
+const DEFAULT_DESCRIPTION = "A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [cms, settings] = await Promise.all([getHomepage(), getSiteSettings()]);
+
+  const title       = cms?.seoTitle       ?? settings?.defaultOgTitle       ?? DEFAULT_TITLE;
+  const description = cms?.seoDescription ?? settings?.defaultOgDescription ?? DEFAULT_DESCRIPTION;
+
+  // OG image: page-level > site-level > static fallback
+  const ogImageUrl = cms?.ogImage
+    ? urlFor(cms.ogImage).width(1200).height(630).url()
+    : settings?.defaultOgImage
+      ? urlFor(settings.defaultOgImage).width(1200).height(630).url()
+      : '/images/og-default.jpg';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card:        'summary_large_image',
+      title,
+      description,
+      images:      [ogImageUrl],
+    },
+    alternates: { canonical: 'https://theflamechristiancooperative.com' },
+  };
+}
 
 // Fallback data used when Sanity fields are empty
 const defaultWhyCards = [

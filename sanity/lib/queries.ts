@@ -6,6 +6,7 @@ const imageFields = `{ asset->{ _id, url, metadata { dimensions } }, hotspot, cr
 // ── HOMEPAGE ──────────────────────────────────────────────────────────────────
 export async function getHomepage() {
   return client.fetch(groq`*[_type == "homepage" && _id == "homepage"][0] {
+    seoTitle, seoDescription, ogImage ${imageFields},
     heroEyebrow, heroHeadline, heroSubheadline, heroTrustLine,
     heroImage ${imageFields},
     whoWeAreEyebrow, whoWeAreHeading, whoWeAreLead, whoWeAreSubhead, whoWeAreBody,
@@ -126,6 +127,8 @@ export async function getSiteSettings() {
   return client.fetch(groq`*[_type == "siteSettings" && _id == "siteSettings"][0] {
     siteName, tagline, contactEmail, phone, address,
     instagramUrl, facebookUrl, youtubeUrl,
+    defaultOgTitle, defaultOgDescription,
+    defaultOgImage ${imageFields},
   }`)
 }
 
