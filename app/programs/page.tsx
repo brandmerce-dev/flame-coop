@@ -43,9 +43,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 function renderBadgeLabel(label: string) {
   const ariaMap: Record<string, string> = { DI: 'Discipleship 1', DII: 'Discipleship 2', DIII: 'Discipleship 3' };
-  if (label === 'DI')   return <span aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>I</span></span>;
-  if (label === 'DII')  return <span aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>II</span></span>;
-  if (label === 'DIII') return <span aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>III</span></span>;
+  if (label === 'DI')   return <span role="img" aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>I</span></span>;
+  if (label === 'DII')  return <span role="img" aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>II</span></span>;
+  if (label === 'DIII') return <span role="img" aria-label={ariaMap[label]}><span aria-hidden="true">D</span><span aria-hidden="true" style={{ fontSize: '.7em' }}>III</span></span>;
   return label;
 }
 

@@ -375,7 +375,7 @@ h6, .h6 {
   font-size:       clamp(0.8rem, 1vw, 0.9rem);
   font-weight:     600;
   letter-spacing:  0.03em;
-  color:           var(--primary);
+  color:           var(--gold-text);   /* #85733D — 4.5:1 on white/cream (WCAG 1.4.3) */
   display:         inline-flex;
   align-items:     center;
   gap:             6px;
@@ -473,14 +473,14 @@ h6, .h6 {
 }
 
 .btn--primary {
-  background: var(--gold);
+  background: var(--gold-hover);     /* #8C7A52 — white text = 5.1:1 (WCAG 1.4.3) */
   color:      var(--text-on-brand);
-  border:     1.5px solid var(--gold);
+  border:     1.5px solid var(--gold-hover);
 }
 
 .btn--primary:hover {
-  background:   var(--gold-hover);
-  border-color: var(--gold-hover);
+  background:   #6B5D3E;
+  border-color: #6B5D3E;
 }
 
 .btn--outline {

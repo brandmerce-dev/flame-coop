@@ -92,8 +92,8 @@ export default function Nav() {
           onClick={openRequestInfoModal}
           style={{
             fontSize: '.82rem', fontWeight: 600, letterSpacing: '.06em',
-            textTransform: 'uppercase', color: 'var(--gold)',
-            border: '1.5px solid var(--gold)', padding: '9px 20px',
+            textTransform: 'uppercase', color: 'var(--gold-text)',
+            border: '1.5px solid var(--gold-text)', padding: '9px 20px',
             borderRadius: 'var(--radius)', transition: 'var(--transition)',
             whiteSpace: 'nowrap', background: 'transparent', cursor: 'pointer',
           }}
@@ -166,7 +166,7 @@ export default function Nav() {
           .nav-mobile-toggle { display: flex !important; }
         }
         .nav-link:hover { color: var(--gold) !important; }
-        .nav-cta:hover { background: var(--gold) !important; color: #fff !important; }
+        .nav-cta:hover { background: var(--gold-text) !important; color: #fff !important; }
       `}</style>
     </nav>
   );

@@ -190,6 +190,7 @@ export default function RequestInfoModal() {
               ref={closeRef}
               onClick={() => setOpen(false)}
               aria-label="Close dialog"
+              tabIndex={open ? 0 : -1}
               style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', lineHeight: 1, color: 'var(--obsidian)', padding: '12px', minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               ×
@@ -207,6 +208,7 @@ export default function RequestInfoModal() {
             className="rim-form-iframe"
             style={{ border: 'none', width: '100%', minHeight: '800px', display: 'block', touchAction: 'manipulation' }}
             title="Request Information Form"
+            tabIndex={open ? 0 : -1}
           />
         </div>
       </div>
