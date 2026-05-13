@@ -6,7 +6,7 @@ interface ScriptureBannerProps {
 
 export default function ScriptureBanner({ reference, quote, citation }: ScriptureBannerProps) {
   return (
-    <blockquote className="scripture" aria-label={`Scripture: ${citation}`}>
+    <blockquote className="scripture" role="region" aria-label={`Scripture: ${citation}`}>
       <div
         style={{
           maxWidth:   '1060px',

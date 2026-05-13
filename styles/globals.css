@@ -51,7 +51,7 @@
   --text-light:        #6B6B6B;   /* 5.9:1 on white  — was #999999 */
   --text-meta:         #555555;   /* 7.5:1 on white  — labels & captions */
   --text-alt:          #7A7265;   /* 4.5:1 on white — was #B8B0A4 (2.6:1) */
-  --gold-text:         #85733D;   /* 4.5:1 on white — use for gold text on light bgs */
+  --gold-text:         #6B5D2F;   /* 6.5:1 on white, 5.4:1 on --bg-shade2 — WCAG AA on all light bgs */
   --heading-color:     #111111;   /* 19:1 on white   — was #1A1A1A */
   --heading-alt:       #F5F2ED;
   --text-on-brand:     #FFFFFF;
@@ -473,14 +473,14 @@ h6, .h6 {
 }
 
 .btn--primary {
-  background: var(--gold-hover);     /* #8C7A52 — white text = 5.1:1 (WCAG 1.4.3) */
+  background: #7A6A36;               /* 5.33:1 with white — WCAG AA (was #8C7A52 @ 4.18:1) */
   color:      var(--text-on-brand);
-  border:     1.5px solid var(--gold-hover);
+  border:     1.5px solid #7A6A36;
 }
 
 .btn--primary:hover {
-  background:   #6B5D3E;
-  border-color: #6B5D3E;
+  background:   #5E5129;
+  border-color: #5E5129;
 }
 
 .btn--outline {
