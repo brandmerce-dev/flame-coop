@@ -39,7 +39,10 @@ export default async function Footer() {
               />
             </div>
             <p className="footer__tagline">{tagline}</p>
-            <p style={{ fontSize: '.72rem', color: 'rgba(255,255,255,.55)', marginTop: '16px' }}>
+            <p style={{ fontSize: '.72rem', color: 'rgba(255,255,255,.6)', marginTop: '12px' }}>
+              The Flame Christian Cooperative is a registered 501(c)(3) nonprofit organization.
+            </p>
+            <p style={{ fontSize: '.72rem', color: 'rgba(255,255,255,.55)', marginTop: '6px' }}>
               {address}
             </p>
             {(instagramUrl || facebookUrl || youtubeUrl) && (
