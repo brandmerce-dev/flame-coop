@@ -7,6 +7,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
 import { getBeliefs } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const defaultBeliefs = [
   'The Bible is the inspired, infallible, and authoritative Word of God — our ultimate guide for faith, learning, and life.',
@@ -29,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       cms?.seoTitle       ?? 'Our Beliefs | The Flame Christian Co-op',
       description: cms?.seoDescription ?? 'Our faith in Jesus Christ is not the backdrop to our education. It is the foundation.',
     },
-    alternates: { canonical: 'https://theflame.org/beliefs' },
+    alternates: { canonical: `${SITE_URL}/beliefs` },
   };
 }
 

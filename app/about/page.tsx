@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { getAbout } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const defaultDiffCards = [
   { title: 'Developmental Placement',               text: 'Children are assessed and placed where they are developmentally ready — not sorted by birthday.' },
@@ -25,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       cms?.seoTitle       ?? 'About The Flame | Built by Families. Fueled by Faith.',
       description: cms?.seoDescription ?? 'The Flame exists because homeschool families believed children deserved more than a good education.',
     },
-    alternates: { canonical: 'https://theflame.org/about' },
+    alternates: { canonical: `${SITE_URL}/about` },
   };
 }
 

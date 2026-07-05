@@ -7,6 +7,7 @@ import AdmissionsForm from '@/components/AdmissionsForm';
 import Hero from '@/components/Hero';
 import { getAdmissions } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const defaultFitItems = [
   'You share our Statement of Faith and are committed to raising your children in the Christian tradition.',
@@ -25,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       cms?.seoTitle       ?? 'Admissions | The Flame Christian Co-op',
       description: cms?.seoDescription ?? 'Begin the admissions process for The Flame Christian Co-op.',
     },
-    alternates: { canonical: 'https://theflame.org/admissions' },
+    alternates: { canonical: `${SITE_URL}/admissions` },
   };
 }
 

@@ -7,6 +7,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
 import { getTuition } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const defaultTuitionRows = [
   { program: 'Sparks — Kindergarten',                             appFee1: '$50', appFeeAdd: '$25', supplyFee: '$200', regFee: '$500',   bgFee: '$20', tuitionTotal: '$3,000', grandTotal: '$3,500' },
@@ -41,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       cms?.seoTitle       ?? 'Tuition & Scholarship | The Flame Christian Co-op',
       description: cms?.seoDescription ?? 'Clear, transparent tuition with scholarship options through Step Up for Students.',
     },
-    alternates: { canonical: 'https://theflame.org/tuition-scholarship' },
+    alternates: { canonical: `${SITE_URL}/tuition-scholarship` },
   };
 }
 

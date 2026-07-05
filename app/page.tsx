@@ -8,6 +8,7 @@ import ScriptureBanner from '@/components/ScriptureBanner';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { getHomepage, getPrograms, getSiteSettings } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const DEFAULT_TITLE       = 'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative';
 const DEFAULT_DESCRIPTION = "A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be.";
@@ -39,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       images:      [ogImageUrl],
     },
-    alternates: { canonical: 'https://theflamechristiancooperative.com' },
+    alternates: { canonical: SITE_URL },
   };
 }
 

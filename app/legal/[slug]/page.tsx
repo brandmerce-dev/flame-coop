@@ -3,6 +3,7 @@ export const revalidate = 0;
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getLegalPage, getLegalPageSlugs } from '@/sanity/lib/queries';
+import { SITE_URL } from '@/lib/site-config';
 
 export async function generateStaticParams() {
   const pages = await getLegalPageSlugs();
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title:       page.seoTitle       ?? page.title,
     description: page.seoDescription ?? undefined,
-    alternates:  { canonical: `https://theflame.org/legal/${slug}` },
+    alternates:  { canonical: `${SITE_URL}/legal/${slug}` },
   };
 }
 

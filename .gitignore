@@ -23,3 +23,8 @@ npm-debug.log*
 # Sanity Studio build output
 dist/
 .sanity/
+.vercel
+
+# macOS Finder duplicate files ("page 2.tsx", "foo 3.js", etc.) — break the TS build
+* [0-9].*
+* [0-9][0-9].*

@@ -6,6 +6,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
 import { getPrograms, getPagePrograms, getSubjects } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
+import { SITE_URL } from '@/lib/site-config';
 
 const defaultElementary = [
   { name: 'Sparks',       level: 'Kindergarten', ages: 'Ages 5–6',   theme: 'The First Spark',             description: "Play-based, warm, and full of wonder. Children build early phonics, number sense, listening skills, and social confidence while being introduced to God as Creator and Father. This stage is joyful by design — because first impressions of learning should be good ones." },
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title:       cms?.seoTitle       ?? 'Programs | The Flame Christian Co-op',
       description: cms?.seoDescription ?? 'From Kindergarten through high school — academically rich, spiritually rooted.',
     },
-    alternates: { canonical: 'https://theflame.org/programs' },
+    alternates: { canonical: `${SITE_URL}/programs` },
   };
 }
 

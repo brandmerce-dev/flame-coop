@@ -72,16 +72,12 @@ These are items that could not be determined from the codebase, Vercel configura
 
 ---
 
-## 8. Domain and canonical URL alignment
+## 8. Domain and canonical URL alignment — ✅ RESOLVED (BRA-391 + BRA-392, 2026-07-05)
 
-**Question:** The codebase references two domains: `theflame.org` (in `sitemap.ts`, `robots.ts`, JSON-LD, and some OG metadata) and `theflamechristiancooperative.com` (in `app/layout.tsx` `metadataBase` and canonical link). Which is the canonical production domain?
+**Decision:** `https://www.theflamechristiancooperative.com` (with `www.`) is the sole canonical domain. The co-op does not own `theflame.org` or `flamecoop.com`; both have been fully purged from source.
 
-**What the codebase shows:**
-- `app/layout.tsx`: `metadataBase: new URL('https://theflamechristiancooperative.com')`
-- `app/sitemap.ts`: `const BASE_URL = 'https://theflame.org'`
-- `app/robots.ts`: sitemap points to `https://theflame.org/sitemap.xml`
-- JSON-LD in layout: `"url": "https://theflame.org"`
+**What was fixed (BRA-391):** A single constant `SITE_URL = 'https://www.theflamechristiancooperative.com'` was created in `lib/site-config.ts` and is now the sole source of truth for sitemap, robots.txt, all `alternates.canonical` tags, `metadataBase`, JSON-LD `url`/`logo`/`contactPoint`, and the root `<link rel="canonical">`.
 
-This inconsistency means the sitemap and JSON-LD point to `theflame.org` while canonical links and `metadataBase` point to `theflamechristiancooperative.com`. Both should be the same domain to avoid SEO issues.
+**What was fixed (BRA-392):** `content/site.json` `contactEmail` updated from `info@theflame.org` to `theflamechristiancooperative@gmail.com` (the co-op's monitored inbox). Sanity `siteSettings.contactEmail` was `null` — no API patch needed.
 
-**Why it matters:** A discrepancy between the canonical domain and the sitemap domain can cause Google to index duplicate content or ignore the sitemap entirely.
+**Note:** The seven ecosystem docs in this directory are tracked at the path prefix `Documents/Claude/flame-coop/docs/ecosystem/` (relative to the repo root) due to a git-add path error in the original commit (e1ebd18). This is a cosmetic issue — content is correct — but should be corrected in a future cleanup PR (move files to `docs/ecosystem/`).
