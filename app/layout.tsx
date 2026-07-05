@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 import SiteChrome from '@/components/SiteChrome';
 import Footer from '@/components/Footer';
+import { SITE_URL } from '@/lib/site-config';
 import '@/styles/globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -22,7 +23,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://theflamechristiancooperative.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:  'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
     template: '%s | The Flame Christian Co-op',
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type:        'website',
     locale:      'en_US',
-    url:         'https://theflame.org',
+    url:         SITE_URL,
     siteName:    'The Flame Christian Co-op',
     title:       'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative',
     description: 'A Christ-centered homeschool cooperative in the St. Augustine area.',
@@ -57,8 +58,8 @@ const jsonLd = {
   '@context':  'https://schema.org',
   '@type':     ['Organization', 'LocalBusiness'],
   name:        'The Flame Christian Co-op',
-  url:         'https://theflame.org',
-  logo:        'https://theflame.org/images/logo/flame-logo-lockup-script.png',
+  url:         SITE_URL,
+  logo:        `${SITE_URL}/images/logo/flame-logo-lockup-script.png`,
   description: 'A Christ-centered homeschool cooperative in the St. Augustine area.',
   address: {
     '@type':          'PostalAddress',
@@ -71,7 +72,7 @@ const jsonLd = {
   contactPoint: {
     '@type':       'ContactPoint',
     contactType:   'admissions',
-    url:           'https://theflame.org/admissions',
+    url:           `${SITE_URL}/admissions`,
   },
 };
 
@@ -87,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       }}
     >
       <head>
-        <link rel="canonical" href="https://theflamechristiancooperative.com" />
+        <link rel="canonical" href={SITE_URL} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://eduweby.com" />

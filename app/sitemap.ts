@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/site-config';
 
-const BASE_URL = 'https://theflame.org';
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

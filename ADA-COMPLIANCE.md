@@ -1,6 +1,6 @@
 # ADA / WCAG 2.1 AA Compliance Report
 
-**Site:** The Flame Christian Cooperative (theflame.org)
+**Site:** The Flame Christian Cooperative (www.theflamechristiancooperative.com)
 **Standard:** WCAG 2.1 Level AA
 **Date of audit:** May 2025
 **Framework:** Next.js 15 (App Router), React 19, Tailwind CSS + custom CSS
