@@ -87,13 +87,7 @@ export default async function ContactPage() {
       {/* Channel cards */}
       <section className="section--cream" style={{ padding: '0 0 60px' }}>
         <div className="container--narrow">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '20px',
-            }}
-          >
+          <div className="contact-channels">
             {email && (
               <div style={cardStyle}>
                 <span style={cardLabelStyle}>Email us</span>
