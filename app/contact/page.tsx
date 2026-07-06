@@ -58,6 +58,14 @@ const cardLinkStyle: React.CSSProperties = {
   wordBreak: 'break-word',
 };
 
+// Email addresses have no natural break points; let a long address wrap
+// cleanly at any point rather than overflow the card.
+const emailLinkStyle: React.CSSProperties = {
+  ...cardLinkStyle,
+  wordBreak: 'normal',
+  overflowWrap: 'anywhere',
+};
+
 export default async function ContactPage() {
   const [cms, settings] = await Promise.all([getContactPage(), getSiteSettings()]);
 
@@ -91,7 +99,7 @@ export default async function ContactPage() {
             {email && (
               <div style={cardStyle}>
                 <span style={cardLabelStyle}>Email us</span>
-                <a href={`mailto:${email}`} style={cardLinkStyle}>{email}</a>
+                <a href={`mailto:${email}`} style={emailLinkStyle}>{email}</a>
               </div>
             )}
             {phone && (
