@@ -1250,8 +1250,43 @@ footer {
 .footer__legal a { font-size: .78rem; color: rgba(255,255,255,.55); transition: var(--transition); padding: 4px 0; }
 .footer__legal a:hover { color: rgba(255,255,255,.9); }
 
+/* Full-width contact strip — sits between the nav columns and the legal row */
+.footer__contact {
+  border-top:      1px solid rgba(255,255,255,.06);
+  padding:         24px 0;
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  gap:             16px 28px;
+  flex-wrap:       wrap;
+}
+.footer__contact-info {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         6px 14px;
+  font-size:   .78rem;
+  color:       rgba(255,255,255,.6);
+}
+.footer__contact-info a       { color: rgba(255,255,255,.72); text-decoration: none; transition: var(--transition); }
+.footer__contact-info a:hover { color: rgba(255,255,255,.95); }
+.footer__contact-sep          { color: rgba(255,255,255,.28); user-select: none; }
+.footer__social { display: flex; gap: 4px; }
+
+@media (max-width: 640px)  { .footer__contact { justify-content: flex-start; } }
+
 @media (max-width: 900px)  { .footer__inner { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px)  { .footer__inner { grid-template-columns: 1fr; } }
+
+/* Contact page channel cards — 3-up equal-height on desktop, single column on mobile */
+.contact-channels {
+  display:               grid;
+  grid-template-columns: 1fr;
+  gap:                   20px;
+}
+@media (min-width: 700px) {
+  .contact-channels { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* ─────────────────────────────────────────────────────────────
    PROOF ROWS
@@ -1386,6 +1421,8 @@ html.a11y-mode .footer__tagline,
 html.a11y-mode .footer__link,
 html.a11y-mode .footer__copy,
 html.a11y-mode .footer__legal a,
+html.a11y-mode .footer__contact-info,
+html.a11y-mode .footer__contact-info a,
 html.a11y-mode #site-footer p {
   color: rgba(255,255,255,.9) !important;
 }

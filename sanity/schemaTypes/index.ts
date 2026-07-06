@@ -6,6 +6,7 @@ import { beliefs }      from './singletons/beliefs'
 import { admissions }   from './singletons/admissions'
 import { tuition }      from './singletons/tuition'
 import { programs }     from './singletons/programs'
+import { contactPage }  from './singletons/contactPage'
 import { program }      from './collections/program'
 import { subject }      from './collections/subject'
 import { legalPage }    from './collections/legalPage'
@@ -20,6 +21,7 @@ export const schemaTypes = [
   admissions,
   tuition,
   programs,
+  contactPage,
   // Collections
   program,
   subject,

@@ -132,6 +132,13 @@ export async function getSiteSettings() {
   }`)
 }
 
+// ── CONTACT PAGE ──────────────────────────────────────────────────────────────
+export async function getContactPage() {
+  return client.fetch(groq`*[_type == "contactPage" && _id == "contactPage"][0] {
+    heading, lead, closingNote,
+  }`)
+}
+
 // ── LEGAL PAGES ───────────────────────────────────────────────────────────────
 export async function getLegalPage(slug: string) {
   return client.fetch(groq`*[_type == "legalPage" && slug.current == $slug][0] {

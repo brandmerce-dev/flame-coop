@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost } from 'next/font/google';
 import SiteChrome from '@/components/SiteChrome';
 import Footer from '@/components/Footer';
 import { SITE_URL } from '@/lib/site-config';
+import { getSiteSettings } from '@/sanity/lib/queries';
 import '@/styles/globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -54,29 +55,47 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context':  'https://schema.org',
-  '@type':     ['Organization', 'LocalBusiness'],
-  name:        'The Flame Christian Co-op',
-  url:         SITE_URL,
-  logo:        `${SITE_URL}/images/logo/flame-logo-lockup-script.png`,
-  description: 'A Christ-centered homeschool cooperative in the St. Augustine area.',
-  address: {
-    '@type':          'PostalAddress',
-    streetAddress:    '895 Palm Valley Rd',
-    addressLocality:  'Ponte Vedra',
-    addressRegion:    'FL',
-    postalCode:       '32081',
-    addressCountry:   'US',
-  },
-  contactPoint: {
-    '@type':       'ContactPoint',
-    contactType:   'admissions',
-    url:           `${SITE_URL}/admissions`,
-  },
-};
+type SiteSettings = {
+  contactEmail?: string | null;
+  phone?:        string | null;
+  facebookUrl?:  string | null;
+} | null;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function buildJsonLd(settings: SiteSettings) {
+  const contactPoint: Record<string, string> = {
+    '@type':     'ContactPoint',
+    contactType: 'admissions',
+    url:         `${SITE_URL}/admissions`,
+  };
+  if (settings?.contactEmail) contactPoint.email     = settings.contactEmail;
+  if (settings?.phone)        contactPoint.telephone = settings.phone;
+
+  return {
+    '@context':  'https://schema.org',
+    '@type':     ['Organization', 'LocalBusiness'],
+    name:        'The Flame Christian Co-op',
+    url:         SITE_URL,
+    logo:        `${SITE_URL}/images/logo/flame-logo-lockup-script.png`,
+    description: 'A Christ-centered homeschool cooperative in the St. Augustine area.',
+    ...(settings?.contactEmail ? { email:     settings.contactEmail } : {}),
+    ...(settings?.phone        ? { telephone: settings.phone }        : {}),
+    ...(settings?.facebookUrl  ? { sameAs:    [settings.facebookUrl] } : {}),
+    address: {
+      '@type':          'PostalAddress',
+      streetAddress:    '895 Palm Valley Rd',
+      addressLocality:  'Ponte Vedra',
+      addressRegion:    'FL',
+      postalCode:       '32081',
+      addressCountry:   'US',
+    },
+    contactPoint,
+  };
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSiteSettings();
+  const jsonLd = buildJsonLd(settings);
+
   return (
     <html
       lang="en"

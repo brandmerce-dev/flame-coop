@@ -19,6 +19,9 @@ One document per type — created once, edited in place. Sanity Studio prevents 
 | `admissions` | All content for the `/admissions` page | Hero, fit checklist items array, **enrollment open/closed boolean toggle** + message strings, "After You Enroll" body (Portable Text), "Request Info" section copy + button label, SEO + OG fields |
 | `tuition` | All content for the `/tuition-scholarship` page | Hero, table intro, tuition rows array (program, all fee columns), callout cards array, scholarships heading + intro + body + scholarships array, CTA section, SEO + OG fields |
 | `programs` | Hero / intro copy for the `/programs` page | Hero (style + eyebrow + headline + lead + image), "How the Levels Work" section (eyebrow + heading + body Portable Text + image), section intro copy for elementary, discipleship, and academic areas, SEO fields |
+| `contactPage` | Editorial copy for the `/contact` page | `heading`, `lead`, `closingNote` (optional). Contact channels themselves (email, phone, address) are **not** duplicated here — the `/contact` page reads those from `siteSettings`, so there is one source of truth for contact data. |
+
+> **Schema evolution (BRA-394, 2026-07-06):** `contactPage` was added as the **contact-surface standard** for co-op sites. It is additive (no existing type changed) and intentionally minimal: only editorial framing copy lives in the document; every contact value (email → `mailto`, phone → `tel`, address → Google Maps directions) is rendered from `siteSettings`. This pairs with the Footer contact block and the JSON-LD `email`/`telephone`/`sameAs` fields, which also read from `siteSettings`. The template's default `contactPage` + Footer should ship this so new client sites inherit a working contact surface.
 
 ### Collections
 Multiple documents per type — editors can create, reorder, and delete.
