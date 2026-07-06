@@ -8,7 +8,8 @@ This repo is part of Brandmerce's **website studio lane** — client marketing s
 - Branch convention: `rsoberal/bra-###-slug` (from the Linear issue). All website work tracks in the **Co-op Sites** Linear project; log build notes as comments on the issue.
 
 ## Worktree convention (a lost edit taught us this)
-- All feature-branch edits happen in the issue's worktree. The main checkout (e.g. `Documents/Claude/flame-coop/`) is read-only reference — an edit made there lands on main's working tree and silently misses the branch.
+- The canonical checkout is `~/Documents/Claude/flame-coop-repo` — a normal clone with its `.git` at its own root. **Never check this repo out at the home directory** (a home-rooted checkout put the whole project index over `~`, sprawled files into `~`, and risked committing personal files; it was purged in BRA-395).
+- All feature-branch edits happen in the issue's worktree, created off the canonical checkout. The canonical checkout itself is read-only reference — an edit made there lands on main's working tree and silently misses the branch.
 - Run `git fetch` + `git status` and confirm a clean, current base before trusting any read or starting any change.
 
 ## The two contracts (never break these)
