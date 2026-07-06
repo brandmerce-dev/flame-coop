@@ -21,10 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+type MarkDef = { _key: string; _type: string; href?: string };
+
 type PtBlock = {
   _type?: string;
   style?: string;
   children?: { text?: string; marks?: string[] }[];
+  markDefs?: MarkDef[];
   listItem?: string;
   level?: number;
 };
@@ -41,7 +44,7 @@ function renderBlocks(blocks: PtBlock[]) {
       <Tag key={elements.length} style={{ paddingLeft: '1.5em', marginBottom: '1em' }}>
         {listBuffer.map((b, i) => (
           <li key={i} style={{ marginBottom: '.4em' }}>
-            {(b.children ?? []).map((c, j) => renderSpan(c, j))}
+            {(b.children ?? []).map((c, j) => renderSpan(c, j, b.markDefs))}
           </li>
         ))}
       </Tag>
@@ -50,11 +53,30 @@ function renderBlocks(blocks: PtBlock[]) {
     listType = null;
   }
 
-  function renderSpan(child: { text?: string; marks?: string[] }, key: number) {
+  function renderSpan(child: { text?: string; marks?: string[] }, key: number, markDefs: MarkDef[] = []) {
     let node: React.ReactNode = child.text ?? '';
-    if (child.marks?.includes('strong')) node = <strong key={key}>{node}</strong>;
-    if (child.marks?.includes('em'))     node = <em key={key}>{node}</em>;
-    return node;
+    if (child.marks?.includes('strong')) node = <strong>{node}</strong>;
+    if (child.marks?.includes('em'))     node = <em>{node}</em>;
+
+    // Link annotations (mailto:, tel:, and external URLs) — rendered as accessible links.
+    const linkMarkKey = child.marks?.find(
+      (m) => markDefs.some((d) => d._key === m && d._type === 'link' && d.href)
+    );
+    if (linkMarkKey) {
+      const href = markDefs.find((d) => d._key === linkMarkKey)!.href!;
+      const external = /^https?:\/\//i.test(href);
+      node = (
+        <a
+          href={href}
+          style={{ color: 'var(--gold-text)', textDecoration: 'underline' }}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {node}
+        </a>
+      );
+    }
+
+    return <span key={key}>{node}</span>;
   }
 
   for (const block of blocks) {
@@ -70,7 +92,7 @@ function renderBlocks(blocks: PtBlock[]) {
 
     flushList();
 
-    const text = (block.children ?? []).map((c, j) => renderSpan(c, j));
+    const text = (block.children ?? []).map((c, j) => renderSpan(c, j, block.markDefs));
     const style = block.style ?? 'normal';
     const mb = { marginBottom: '1em' };
 
