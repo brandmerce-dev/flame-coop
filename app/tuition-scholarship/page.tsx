@@ -19,6 +19,24 @@ type TuitionRow = {
 type TuitionCallout = { program: string; total?: string; note?: string };
 type Scholarship    = { name: string; desc?: string };
 
+// Fee-table columns, in display order. `always: true` marks the table's minimum
+// viable shape (Program + Tuition Total). Every other column is optional: it
+// renders — header and every row's cell — only when at least one row actually
+// has a value for it, so clearing a column in Sanity removes the column instead
+// of leaving a blank strip on the table.
+const TUITION_COLUMNS: { key: keyof TuitionRow; header: React.ReactNode; always?: boolean }[] = [
+  { key: 'program',      header: 'Program',                        always: true },
+  { key: 'appFee1',      header: <>App Fee<br />1st child</> },
+  { key: 'appFeeAdd',    header: <>App Fee<br />add&apos;l</> },
+  { key: 'supplyFee',    header: <>Supply<br />Fee</> },
+  { key: 'regFee',       header: <>Reg.<br />Fee</> },
+  { key: 'bgFee',        header: <>BG<br />/parent</> },
+  { key: 'tuitionTotal', header: <>Tuition<br />Total</>,          always: true },
+  { key: 'grandTotal',   header: <>Tuition +<br />Reg. Total</> },
+];
+
+const hasValue = (v?: string) => typeof v === 'string' && v.trim() !== '';
+
 const defaultFootnote = "Tuition paid in two equal installments: Aug 15 (1st half) · Dec 3 (2nd half). Supply fee secures the child's spot — due within 3 business days of acceptance. Background fee due after handbook submission. All fees non-refundable. New-family fees apply to first-year enrollment only.";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,6 +67,13 @@ export default async function TuitionPage() {
   const tableFootnote      = cms?.tableFootnote      ?? defaultFootnote;
   const tuitionRows: TuitionRow[]     = cms?.tuitionRows ?? [];
   const callouts:    TuitionCallout[] = cms?.callouts    ?? [];
+
+  // Column visibility is derived from the data: an optional column survives only
+  // if some row has a value for it. Drives <th>, every <td>, and the footnote's
+  // colSpan, so the table stays structurally consistent at any column count.
+  const visibleColumns = TUITION_COLUMNS.filter(
+    (col) => col.always || tuitionRows.some((row) => hasValue(row[col.key])),
+  );
   const scholarshipsHeading = cms?.scholarshipsHeading ?? 'Scholarships Welcome Here.';
   const scholarshipsIntro   = cms?.scholarshipsIntro   ?? 'The Flame Christian Cooperative is a direct provider for the Step Up for Students Scholarship in Florida. We believe financial barriers should not stand between a family and the Christ-centered education God is calling them toward.';
   const scholarshipsBody    = cms?.scholarshipsBody    ?? 'Families can pay directly through the Step Up for Students Marketplace portal, or we provide all documentation for a reimbursement request. Your tuition agreement remains in place whether you use scholarship funds or pay out of pocket.';
@@ -96,32 +121,24 @@ export default async function TuitionPage() {
                 <table className="tuition-table">
                   <thead>
                     <tr>
-                      <th scope="col" style={{ textAlign: 'left' }}>Program</th>
-                      <th scope="col">App Fee<br />1st child</th>
-                      <th scope="col">App Fee<br />add&apos;l</th>
-                      <th scope="col">Supply<br />Fee</th>
-                      <th scope="col">Reg.<br />Fee</th>
-                      <th scope="col">BG<br />/parent</th>
-                      <th scope="col">Tuition<br />Total</th>
-                      <th scope="col">Tuition +<br />Reg. Total</th>
+                      {visibleColumns.map((col) => (
+                        <th key={col.key} scope="col">{col.header}</th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
                     {tuitionRows.map((row: TuitionRow, i: number) => (
                       <tr key={i}>
-                        <td>{row.program}</td>
-                        <td>{row.appFee1}</td>
-                        <td>{row.appFeeAdd}</td>
-                        <td>{row.supplyFee}</td>
-                        <td>{row.regFee}</td>
-                        <td>{row.bgFee}</td>
-                        <td>{row.tuitionTotal}</td>
-                        <td>{row.grandTotal}</td>
+                        {visibleColumns.map((col) => (
+                          <td key={col.key}>{row[col.key]}</td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>
                   <tfoot>
-                    <tr><td colSpan={8}>{tableFootnote}</td></tr>
+                    {/* colSpan tracks the visible column count so the footnote
+                        always spans the full table */}
+                    <tr><td colSpan={visibleColumns.length}>{tableFootnote}</td></tr>
                   </tfoot>
                 </table>
               </div>
