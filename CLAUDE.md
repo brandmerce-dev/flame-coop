@@ -6,6 +6,7 @@ This repo is part of Brandmerce's **website studio lane** — client marketing s
 - **Next.js (App Router) + TypeScript · Sanity CMS · Vercel** (Pro team `rsoberal-brandmerces-projects`; production deploys automatically from `main` of THIS repo — there is no fork-sync step; the old brandmerce/flame-coop fork is retired).
 - **One repo, one Sanity project/dataset, one Vercel project per client.** New client sites are created from the `coop-site-template` GitHub template repository — never by forking a client repo.
 - Branch convention: `rsoberal/bra-###-slug` (from the Linear issue). All website work tracks in the **Co-op Sites** Linear project; log build notes as comments on the issue.
+- Commits and PRs: do not add Co-Authored-By or 'Generated with Claude Code' attribution lines.
 
 ## Worktree convention (a lost edit taught us this)
 - The canonical checkout is `~/Documents/Claude/flame-coop-repo` — a normal clone with its `.git` at its own root. **Never check this repo out at the home directory** (a home-rooted checkout put the whole project index over `~`, sprawled files into `~`, and risked committing personal files; it was purged in BRA-395).
