@@ -9,7 +9,7 @@ This repo is part of Brandmerce's **website studio lane** — client marketing s
 - Commits and PRs: do not add Co-Authored-By or 'Generated with Claude Code' attribution lines.
 
 ## Worktree convention (a lost edit taught us this)
-- The canonical checkout is `~/Documents/Claude/flame-coop-repo` — a normal clone with its `.git` at its own root. **Never check this repo out at the home directory** (a home-rooted checkout put the whole project index over `~`, sprawled files into `~`, and risked committing personal files; it was purged in BRA-395).
+- The canonical checkout is `~/Developer/Claude/flame-coop-repo` — a normal clone with its `.git` at its own root. **Never check this repo out at the home directory** (a home-rooted checkout put the whole project index over `~`, sprawled files into `~`, and risked committing personal files; it was purged in BRA-395).
 - All feature-branch edits happen in the issue's worktree, created off the canonical checkout. The canonical checkout itself is read-only reference — an edit made there lands on main's working tree and silently misses the branch.
 - Run `git fetch` + `git status` and confirm a clean, current base before trusting any read or starting any change.
 
