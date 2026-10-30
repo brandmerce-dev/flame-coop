@@ -4,6 +4,7 @@ import SiteChrome from '@/components/SiteChrome';
 import Footer from '@/components/Footer';
 import { SITE_URL } from '@/lib/site-config';
 import { getSiteSettings } from '@/sanity/lib/queries';
+import { HERO_FADE_SCRIPT } from '@/lib/hero-fade';
 import '@/styles/globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -109,6 +110,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         {/* Canonical is emitted per-page via generateMetadata's alternates.canonical
             (single source of truth) — no site-wide canonical here. */}
+        <script dangerouslySetInnerHTML={{ __html: HERO_FADE_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://eduweby.com" />

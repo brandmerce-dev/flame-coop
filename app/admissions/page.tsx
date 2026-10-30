@@ -6,7 +6,7 @@ import ImagePlaceholder from '@/components/ImagePlaceholder';
 import AdmissionsForm from '@/components/AdmissionsForm';
 import Hero from '@/components/Hero';
 import { getAdmissions } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor, heroImage } from '@/sanity/lib/image';
 import { SITE_URL } from '@/lib/site-config';
 
 const defaultFitItems = [
@@ -36,6 +36,7 @@ export default async function AdmissionsPage() {
   const heroStyle    = (cms?.heroStyle as 'cream' | 'image' | 'none' | 'dark') ?? 'cream'
   const heroEyebrow  = cms?.heroEyebrow  ?? 'Admissions'
   const heroImageSrc = cms?.heroImage ? urlFor(cms.heroImage).width(2400).url() : undefined
+  const heroSrcSet   = heroImage(cms?.heroImage, 2400, '100vw', 2400)?.srcSet;
   const heroImageAlt = cms?.heroImageAlt ?? undefined
 
   const heroHeadline = cms?.heroHeadline ?? 'The Journey Into The Flame Starts Here.';
@@ -79,7 +80,7 @@ export default async function AdmissionsPage() {
     <>
       {/* HERO */}
       {heroStyle === 'image' ? (
-        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageAlt={heroImageAlt} />
+        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageSrcSet={heroSrcSet} imageAlt={heroImageAlt} />
       ) : heroStyle === 'dark' ? (
         <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} />
       ) : heroStyle === 'cream' ? (
