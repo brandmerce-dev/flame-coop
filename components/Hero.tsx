@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface HeroButton {
@@ -14,6 +13,7 @@ interface HeroProps {
   trustLine?:  string;
   buttons?:    HeroButton[];
   imageSrc?:   string;
+  imageSrcSet?: string;
   imageAlt?:   string;
 }
 
@@ -24,6 +24,7 @@ export default function Hero({
   trustLine,
   buttons = [],
   imageSrc,
+  imageSrcSet,
   imageAlt = 'Hero background',
 }: HeroProps) {
   return (
@@ -40,13 +41,18 @@ export default function Hero({
         }}
       >
         {imageSrc && (
-          <Image
+          // A plain img in next/image's `fill` box: with `unoptimized` next/image gives no srcset. High priority, and
+          // it fades in once loaded (BRA-1248, lib/hero-fade.ts).
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={imageSrc}
-            alt={imageAlt}
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
+            srcSet={imageSrcSet}
             sizes="100vw"
+            alt={imageAlt}
+            fetchPriority="high"
+            decoding="async"
+            data-hero-img=""
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', color: 'transparent' }}
           />
         )}
         {!imageSrc && (

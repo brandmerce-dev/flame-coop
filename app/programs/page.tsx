@@ -5,7 +5,7 @@ import Image from 'next/image';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
 import { getPrograms, getPagePrograms, getSubjects } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor, heroImage } from '@/sanity/lib/image';
 import { SITE_URL } from '@/lib/site-config';
 
 const defaultElementary = [
@@ -64,6 +64,7 @@ export default async function ProgramsPage() {
   const heroHeadline = cmsPage?.heroHeadline ?? 'Every Program Is a Step Deeper Into the Fire.';
   const heroLead     = cmsPage?.heroLead     ?? "From Kindergarten through high school — academically rich, spiritually rooted, moving at your child's actual pace.";
   const heroImageSrc = cmsPage?.heroImage ? urlFor(cmsPage.heroImage).width(2400).url() : undefined;
+  const heroSrcSet   = heroImage(cmsPage?.heroImage, 2400, '100vw', 2400)?.srcSet;
   const heroImageAlt = cmsPage?.heroImageAlt ?? undefined;
 
   const levelsEyebrow     = cmsPage?.levelsEyebrow ?? 'How the Levels Work';
@@ -103,7 +104,7 @@ export default async function ProgramsPage() {
     <>
       {/* HERO */}
       {heroStyle === 'image' ? (
-        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageAlt={heroImageAlt} />
+        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageSrcSet={heroSrcSet} imageAlt={heroImageAlt} />
       ) : heroStyle === 'dark' ? (
         <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} />
       ) : heroStyle === 'cream' ? (

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import Hero from '@/components/Hero';
 import { getTuition } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor, heroImage } from '@/sanity/lib/image';
 import { SITE_URL } from '@/lib/site-config';
 
 // Array-driven sections render ONLY what Sanity returns — no hardcoded
@@ -58,6 +58,7 @@ export default async function TuitionPage() {
   const heroStyle    = (cms?.heroStyle as 'cream' | 'image' | 'none' | 'dark') ?? 'cream'
   const heroEyebrow  = cms?.heroEyebrow  ?? 'Tuition & Scholarship'
   const heroImageSrc = cms?.heroImage ? urlFor(cms.heroImage).width(2400).url() : undefined
+  const heroSrcSet   = heroImage(cms?.heroImage, 2400, '100vw', 2400)?.srcSet;
   const heroImageAlt = cms?.heroImageAlt ?? undefined
 
   const heroHeadline       = cms?.heroHeadline       ?? 'An Investment in Faith, Formation, and Future.';
@@ -92,7 +93,7 @@ export default async function TuitionPage() {
     <>
       {/* HERO */}
       {heroStyle === 'image' ? (
-        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageAlt={heroImageAlt} />
+        <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} imageSrc={heroImageSrc} imageSrcSet={heroSrcSet} imageAlt={heroImageAlt} />
       ) : heroStyle === 'dark' ? (
         <Hero eyebrow={heroEyebrow} headline={heroHeadline} subheadline={heroLead} />
       ) : heroStyle === 'cream' ? (

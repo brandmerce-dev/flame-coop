@@ -7,7 +7,7 @@ import Hero from '@/components/Hero';
 import ScriptureBanner from '@/components/ScriptureBanner';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { getHomepage, getPrograms, getSiteSettings } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor, heroImage } from '@/sanity/lib/image';
 import { SITE_URL } from '@/lib/site-config';
 
 const DEFAULT_TITLE       = 'The Flame Christian Co-op | St. Augustine Christian Homeschool Cooperative';
@@ -89,6 +89,7 @@ export default async function HomePage() {
   const heroSubhead   = cms?.heroSubheadline ?? "A Christ-centered homeschool cooperative in the St. Augustine area — where children encounter God's presence, grow in knowledge, and discover who He created them to be.";
   const heroTrustLine = cms?.heroTrustLine  ?? 'Serving homeschool families from Kindergarten through high school discipleship';
   const heroImageSrc  = cms?.heroImage ? urlFor(cms.heroImage).width(1920).url() : undefined;
+  const heroSrcSet   = heroImage(cms?.heroImage, 1920, '100vw', 1920)?.srcSet;
 
   // ── Scripture ─────────────────────────────────────────────────────────────
   const scriptureQuote    = cms?.scriptureQuote    ?? '"For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands, for God gave us a spirit not of fear but of power and of love and of self-control."';
@@ -142,7 +143,7 @@ export default async function HomePage() {
         headline={heroHeadline}
         subheadline={heroSubhead}
         trustLine={heroTrustLine}
-        imageSrc={heroImageSrc}
+        imageSrc={heroImageSrc} imageSrcSet={heroSrcSet}
         buttons={[
           { label: 'Begin Admissions', href: '/admissions', variant: 'primary' },
           { label: 'Explore Programs', href: '/programs',   variant: 'outline-white' },

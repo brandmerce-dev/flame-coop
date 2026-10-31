@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Hero from '@/components/Hero';
 import ImagePlaceholder from '@/components/ImagePlaceholder';
 import { getAbout } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor, heroImage } from '@/sanity/lib/image';
 import { SITE_URL } from '@/lib/site-config';
 
 const defaultDiffCards = [
@@ -39,6 +39,7 @@ export default async function AboutPage() {
   const heroHeadline = cms?.heroHeadline ?? 'Built by Families. Fueled by Faith. On Fire for Jesus.';
   const heroLead     = cms?.heroLead     ?? 'The Flame exists because homeschool families believed children deserved more than a good education — they deserved a community that would call out the fire God placed inside them.';
   const heroImageSrc = cms?.heroImage ? urlFor(cms.heroImage).width(2400).url() : undefined;
+  const heroSrcSet   = heroImage(cms?.heroImage, 2400, '100vw', 2400)?.srcSet;
   const heroImageAlt = cms?.heroImageAlt ?? 'The Flame community';
 
   // ── Our Story ─────────────────────────────────────────────────────────────
@@ -101,7 +102,7 @@ export default async function AboutPage() {
           eyebrow={heroEyebrow}
           headline={heroHeadline}
           subheadline={heroLead}
-          imageSrc={heroImageSrc}
+          imageSrc={heroImageSrc} imageSrcSet={heroSrcSet}
           imageAlt={heroImageAlt}
         />
       ) : heroStyle === 'cream' ? (

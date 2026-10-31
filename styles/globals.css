@@ -1494,3 +1494,9 @@ html.a11y-mode [tabindex]:focus-visible {
     animation-delay:      0s     !important;
   }
 }
+
+/* Hero photos fade in once loaded and decoded (BRA-1248, lib/hero-fade.ts): hidden only while the script runs
+   (html.hero-fade), so without JS they show at once; no fade under reduced motion. */
+html.hero-fade [data-hero-img]:not([data-hero-ready]) { opacity: 0; }
+[data-hero-img] { transition: opacity var(--hero-fade, .6s) ease; }
+@media (prefers-reduced-motion: reduce) { [data-hero-img] { transition: none; } }
